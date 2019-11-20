@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.VisualBasic.FileIO;
 
 namespace kata_payslip
 {
