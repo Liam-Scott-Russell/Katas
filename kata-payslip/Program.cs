@@ -27,12 +27,7 @@ namespace kata_payslip
 
                // Print the payslip
                Console.WriteLine("\nYour payslip has been generated: \n");
-               Console.WriteLine($"Name: {payslip.FullName}");
-               Console.WriteLine($"Pay Period: {payslip.PayPeriod}");
-               Console.WriteLine($"Gross Income: {payslip.GrossIncome}");
-               Console.WriteLine($"Income Tax: {payslip.Tax}");
-               Console.WriteLine($"Net Income: {payslip.NetIncome}");
-               Console.WriteLine($"Super: {payslip.Super}");
+               payslip.Print();
                Console.WriteLine("\nThank you for using MYOB!");
           }
           
@@ -87,6 +82,17 @@ namespace kata_payslip
                this.NetIncome = this.GrossIncome - this.Tax;
 
           }
+
+          public void Print()
+          {
+               Console.WriteLine($"Name: {this.FullName}");
+               Console.WriteLine($"Pay Period: {this.PayPeriod}");
+               Console.WriteLine($"Gross Income: {this.GrossIncome}");
+               Console.WriteLine($"Income Tax: {this.Tax}");
+               Console.WriteLine($"Net Income: {this.NetIncome}");
+               Console.WriteLine($"Super: {this.Super}");
+          }
+
           
           //Properties
           public string FullName { get; set; }
