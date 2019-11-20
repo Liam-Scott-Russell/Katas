@@ -70,6 +70,19 @@ namespace kata_payslip
                this.GrossIncome = Math.Round((double) (salary / 12));
                
                // Calculates the tax on the salary
+               this.CalculateTax(salary);
+
+               // Calculate the super of the individual
+               this.Super = Convert.ToInt32(this.GrossIncome * (superPercent / 100.0));
+
+               // Calculates monthly net income
+               this.NetIncome = this.GrossIncome - this.Tax;
+
+          }
+          
+          private void CalculateTax(int salary)
+          // Sets the property Tax to the correct tax value
+          {
                double tax;
                if (salary <= 18200)
                {
@@ -93,15 +106,8 @@ namespace kata_payslip
                }
 
                this.Tax = Math.Round(tax / 12); // Makes the tax for one month
-               
-               // Calculate the super of the individual
-               this.Super = Convert.ToInt32(this.GrossIncome * (superPercent / 100.0));
-
-               // Calculates monthly net income
-               this.NetIncome = this.GrossIncome - this.Tax;
-
           }
-
+          
           public void Print()
           {
                Console.WriteLine($"Name: {this.FullName}");
