@@ -37,7 +37,7 @@ namespace kata_payslip
                     {
                          CSV outputFile = new CSV(outputFileName);
                          outputFile.Write(payslips);
-                         Console.Out.WriteLine($"Wrote to file {outputFile}");
+                         Console.Out.WriteLine($"Wrote to file {outputFileName}");
                     }
 
                }
