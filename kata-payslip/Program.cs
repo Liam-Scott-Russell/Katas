@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.VisualBasic.FileIO;
 
 namespace kata_payslip
 {
@@ -6,29 +7,47 @@ namespace kata_payslip
      {
           static void Main(string[] args)
           {
-               // Gets input from the user
-               Console.WriteLine("Welcome to the payslip generator!\n");
-               Console.WriteLine("Please input your name: ");
-               string firstName = Console.ReadLine();
-               Console.WriteLine("Please input your surname: ");
-               string lastName = Console.ReadLine();
-               Console.WriteLine("Please enter your annual salary: ");
-               int salary = Convert.ToInt32(Console.ReadLine());
-               Console.WriteLine("Please enter your super: ");
-               int superPercent = Convert.ToInt32(Console.ReadLine());
-               Console.WriteLine("Please enter your payment start date: ");
-               string startDate = Console.ReadLine();
-               Console.WriteLine("Please enter your payment end date: ");
-               string endDate = Console.ReadLine();
+               Console.WriteLine("Type \"csv\" to import from csv, or anything else for manual input");
+               string choice = Console.ReadLine();
+               if (choice == "csv")
+               {
+                    Console.WriteLine("Please specify a filename");
+                    // Use "../../../" as a prefix to get the right file
+                    string fileName = Console.ReadLine();
 
-               // Instantiate a payslip object
-               Payslip payslip = new Payslip(firstName, lastName, salary, superPercent, startDate, endDate);
-               
+                    // Read the CSV data
+                    string[] lines = System.IO.File.ReadAllLines(fileName);
+                    for (int i = 1; i < lines.Length; i++)
+                    {
+                         // Separates the line based on commas
+                         string[] sep = lines[i].Split(",");
+                    }
+               }
+               else
+               {
+                    // Gets input from the user
+                    Console.WriteLine("Welcome to the payslip generator!\n");
+                    Console.WriteLine("Please input your name: ");
+                    string firstName = Console.ReadLine();
+                    Console.WriteLine("Please input your surname: ");
+                    string lastName = Console.ReadLine();
+                    Console.WriteLine("Please enter your annual salary: ");
+                    int salary = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Please enter your super: ");
+                    int superPercent = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Please enter your payment start date: ");
+                    string startDate = Console.ReadLine();
+                    Console.WriteLine("Please enter your payment end date: ");
+                    string endDate = Console.ReadLine();
 
-               // Print the payslip
-               Console.WriteLine("\nYour payslip has been generated: \n");
-               payslip.Print();
-               Console.WriteLine("\nThank you for using MYOB!");
+                    // Instantiate a payslip object
+                    Payslip payslip = new Payslip(firstName, lastName, salary, superPercent, startDate, endDate);
+
+                    // Print the payslip
+                    Console.WriteLine("\nYour payslip has been generated: \n");
+                    payslip.Print();
+                    Console.WriteLine("\nThank you for using MYOB!");
+               }
           }
           
           
