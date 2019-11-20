@@ -28,7 +28,18 @@ namespace kata_payslip
                          Console.Out.WriteLine("\n");
                     }
 
-                    Console.Out.WriteLine("\nThank you for using MYOB");
+                    Console.Out.WriteLine("\nThank you for using MYOB\n");
+
+                    Console.Out.WriteLine("Did you want to save output to a csv file?\nIf so, enter a file path, otherwise type \"no\"");
+                    string outputFileName = Console.ReadLine();
+
+                    if (outputFileName != "No" && outputFileName != "no")
+                    {
+                         CSV outputFile = new CSV(outputFileName);
+                         outputFile.Write(payslips);
+                         Console.Out.WriteLine($"Wrote to file {outputFile}");
+                    }
+
                }
                else
                {
@@ -149,7 +160,8 @@ namespace kata_payslip
           // Returns a comma-separated string of the information of the payslip when the object is printed
           public override string ToString()
           {
-               return $"{this.FullName}, {this.PayPeriod}, {this.GrossIncome}, {this.Tax}, {this.NetIncome}, {this.Super}"
+               return
+                    $"{this.FullName},{this.PayPeriod},{this.GrossIncome},{this.Tax},{this.NetIncome},{this.Super}";
           }
 
 
@@ -184,6 +196,22 @@ namespace kata_payslip
                }
 
                return payslips;
+          }
+
+          public void Write(List<Payslip> data)
+          {
+               List<String> lines = new List<string>();
+               //Add the headers for the CSV
+               lines.Add("Fullname,Pay Period,Gross Income,Income Tax,Net Income,Super");
+               
+               // loops through the payslip list and calls the ToString() method to return CSVs
+               foreach (Payslip payslip in data)
+               {
+                    lines.Add(Convert.ToString((payslip)));
+               }
+
+               System.IO.File.WriteAllLines(FileName, lines.ToArray());
+
           }
      }
 }
