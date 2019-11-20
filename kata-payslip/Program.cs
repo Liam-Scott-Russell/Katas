@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace kata_payslip
 {
@@ -17,7 +18,7 @@ namespace kata_payslip
                     
                     // Read the CSV data
                     CSV file = new CSV(fileName);
-                    List<Payslip> payslips = file.Read();
+                    Payslip[] payslips = file.Read();
                     
                     // Print the payslips to console
                     Console.Out.WriteLine("\nYour payslip has been generated:\n");
@@ -159,8 +160,7 @@ namespace kata_payslip
           // Returns a comma-separated string of the information of the payslip when the object is printed
           public override string ToString()
           {
-               return
-                    $"{this.FullName},{this.PayPeriod},{this.GrossIncome},{this.Tax},{this.NetIncome},{this.Super}";
+               return $"{this.FullName},{this.PayPeriod},{this.GrossIncome},{this.Tax},{this.NetIncome},{this.Super}";
           }
 
 
@@ -183,33 +183,34 @@ namespace kata_payslip
                this.FileName = fileName;
           }
 
-          public List<Payslip> Read()
+          public Payslip[] Read()
           {
-               List<Payslip> payslips = new List<Payslip>();
                string[] lines = System.IO.File.ReadAllLines(this.FileName);
+               // Length is one less because we don't want headers
+               Payslip[] payslips = new Payslip[lines.Length - 1];
                for (int i = 1; i < lines.Length; i++)
                {
                     // Separates the line based on commas
-                    string[] sep = lines[i].Split(",");
-                    payslips.Add(new Payslip(sep));
+                    payslips[i-1] = new Payslip(lines[i].Split(","));
                }
 
                return payslips;
           }
 
-          public void Write(List<Payslip> data)
+          public void Write(Payslip[] data)
           {
-               List<String> lines = new List<string>();
+               // +1 for headers
+               String[] lines = new String[data.Length + 1];
                //Add the headers for the CSV
-               lines.Add("Fullname,Pay Period,Gross Income,Income Tax,Net Income,Super");
+               lines[0] = ("Fullname,Pay Period,Gross Income,Income Tax,Net Income,Super");
                
                // loops through the payslip list and calls the ToString() method to return CSVs
-               foreach (Payslip payslip in data)
+               for (int i = 1; i < lines.Length; i++)
                {
-                    lines.Add(Convert.ToString((payslip)));
+                    lines[i] = Convert.ToString((data[i-1]));
                }
 
-               System.IO.File.WriteAllLines(FileName, lines.ToArray());
+               System.IO.File.WriteAllLines(FileName, lines);
 
           }
      }
