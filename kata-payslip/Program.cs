@@ -15,19 +15,10 @@ namespace kata_payslip
                     Console.WriteLine("Please specify a filename");
                     // Use "../../../" as a prefix to get the right file
                     string fileName = Console.ReadLine();
-
-                    List<Payslip> payslips = new List<Payslip>();
                     
                     // Read the CSV data
-                    string[] lines = System.IO.File.ReadAllLines(fileName);
-                    for (int i = 1; i < lines.Length; i++)
-                    {
-                         // Separates the line based on commas
-                         string[] sep = lines[i].Split(",");
-
-                         Payslip payslip = new Payslip(sep);
-                         payslips.Add(payslip); // Add to the payslips list
-                    }
+                    CSV file = new CSV(fileName);
+                    List<Payslip> payslips = file.Read();
                     
                     // Print the payslips to console
                     Console.Out.WriteLine("\nYour payslip has been generated:\n");
@@ -162,5 +153,30 @@ namespace kata_payslip
           public double Tax { get; set; }
           public double NetIncome { get; set; }
           public double Super { get; set; }
+     }
+
+     public class CSV
+     {
+          // Properties
+          public string FileName { get; set; }
+
+          public CSV(string fileName)
+          {
+               this.FileName = fileName;
+          }
+
+          public List<Payslip> Read()
+          {
+               List<Payslip> payslips = new List<Payslip>();
+               string[] lines = System.IO.File.ReadAllLines(this.FileName);
+               for (int i = 1; i < lines.Length; i++)
+               {
+                    // Separates the line based on commas
+                    string[] sep = lines[i].Split(",");
+                    payslips.Add(new Payslip(sep));
+               }
+
+               return payslips;
+          }
      }
 }
