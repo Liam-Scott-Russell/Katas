@@ -1,5 +1,10 @@
 ﻿using System;
 
+/* Note about error checking:
+ *      I didn't include error checking for the user inputs as it would just be chasing edge cases forever,
+ *      however I could add that if needed.
+ */
+
 namespace kata_payslip
 {
      class Program
