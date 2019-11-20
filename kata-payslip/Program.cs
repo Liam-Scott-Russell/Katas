@@ -11,7 +11,7 @@ namespace kata_payslip
                Console.WriteLine("Please input your name: ");
                string firstName = Console.ReadLine();
                Console.WriteLine("Please input your surname: ");
-               string surName = Console.ReadLine();
+               string lastName = Console.ReadLine();
                Console.WriteLine("Please enter your annual salary: ");
                int salary = Convert.ToInt32(Console.ReadLine());
                Console.WriteLine("Please enter your super: ");
@@ -21,20 +21,41 @@ namespace kata_payslip
                Console.WriteLine("Please enter your payment end date: ");
                string endDate = Console.ReadLine();
 
-               // Re-orders some of the input so that it prints correctly
-               string fullName = $"{firstName} {surName}";
-               string month = startDate.Split(" ")[1];
+               // Instantiate a payslip object
+               Payslip payslip = new Payslip(firstName, lastName, salary, superPercent, startDate, endDate);
+               
 
-               // Strip the days from the entered month, and pad them to 2 characters
+               // Print the payslip
+               Console.WriteLine("\nYour payslip has been generated: \n");
+               Console.WriteLine($"Name: {payslip.FullName}");
+               Console.WriteLine($"Pay Period: {payslip.PayPeriod}");
+               Console.WriteLine($"Gross Income: {payslip.GrossIncome}");
+               Console.WriteLine($"Income Tax: {payslip.Tax}");
+               Console.WriteLine($"Net Income: {payslip.NetIncome}");
+               Console.WriteLine($"Super: {payslip.Super}");
+               Console.WriteLine("\nThank you for using MYOB!");
+          }
+          
+          
+     }
+
+     public class Payslip
+     {
+          public Payslip(string firstName, string lastName, int salary, int superPercent, string startDate, string endDate)
+          {
+               this.FullName = $"{firstName} {lastName}";
+               
+               // Separates the input dates and gets the day and month
+               // Also pads the date to two characters
+               string month = startDate.Split(" ")[1];
                string startDay = startDate.Split(" ")[0].PadLeft(2, '0');
                string endDay = endDate.Split(" ")[0].PadLeft(2, '0');
-               string payPeriod = $"{startDay} {month} - {endDay} {month}";
-
-
-               // Calculate the gross income
-               double grossIncome = Math.Round((double) (salary / 12));
-
-               // Determine which tax bracket the salary is in
+               this.PayPeriod = $"{startDay} {month} - {endDay} {month}";
+               
+               // Calculates the monthly gross income
+               this.GrossIncome = Math.Round((double) (salary / 12));
+               
+               // Calculates the tax on the salary
                double tax;
                if (salary <= 18200)
                {
@@ -57,20 +78,22 @@ namespace kata_payslip
                     tax = 54232 + (0.42 * (salary - 180000));
                }
 
-               tax = Math.Round(tax / 12); // Makes the tax for one month
-
+               this.Tax = Math.Round(tax / 12); // Makes the tax for one month
+               
                // Calculate the super of the individual
-               int superAmount = Convert.ToInt32(grossIncome * (superPercent / 100.0));
+               this.Super = Convert.ToInt32(this.GrossIncome * (superPercent / 100.0));
 
-               // Print the payslip
-               Console.WriteLine("\nYour payslip has been generated: \n");
-               Console.WriteLine($"Name: {fullName}");
-               Console.WriteLine($"Pay Period: {payPeriod}");
-               Console.WriteLine($"Gross Income: {grossIncome}");
-               Console.WriteLine($"Income Tax: {tax}");
-               Console.WriteLine($"Net Income: {grossIncome - tax}");
-               Console.WriteLine($"Super: {superAmount}");
-               Console.WriteLine("\nThank you for using MYOB!");
+               // Calculates monthly net income
+               this.NetIncome = this.GrossIncome - this.Tax;
+
           }
+          
+          //Properties
+          public string FullName { get; set; }
+          public string PayPeriod { get; set; }
+          public double GrossIncome { get; set; }
+          public double Tax { get; set; }
+          public double NetIncome { get; set; }
+          public double Super { get; set; }
      }
 }
