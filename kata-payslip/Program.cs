@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualBasic.FileIO;
 
 namespace kata_payslip
@@ -15,13 +16,28 @@ namespace kata_payslip
                     // Use "../../../" as a prefix to get the right file
                     string fileName = Console.ReadLine();
 
+                    List<Payslip> payslips = new List<Payslip>();
+                    
                     // Read the CSV data
                     string[] lines = System.IO.File.ReadAllLines(fileName);
                     for (int i = 1; i < lines.Length; i++)
                     {
                          // Separates the line based on commas
                          string[] sep = lines[i].Split(",");
+
+                         Payslip payslip = new Payslip(sep);
+                         payslips.Add(payslip); // Add to the payslips list
                     }
+                    
+                    // Print the payslips to console
+                    Console.Out.WriteLine("\nYour payslip has been generated:\n");
+                    foreach (Payslip payslip in payslips)
+                    {
+                         payslip.Print();
+                         Console.Out.WriteLine("\n");
+                    }
+
+                    Console.Out.WriteLine("\nThank you for using MYOB");
                }
                else
                {
@@ -79,7 +95,27 @@ namespace kata_payslip
                this.NetIncome = this.GrossIncome - this.Tax;
 
           }
-          
+
+          public Payslip(string[] userData)
+          {
+               this.FullName = $"{userData[0]} {userData[1]}";
+               int salary = Convert.ToInt32(userData[2]);
+               
+               // Calculate the tax
+               this.CalculateTax(salary);
+               
+               // Calculates the monthly gross income
+               this.GrossIncome = Math.Round((double) (salary / 12));
+
+               // Removes the '%' character from the super, and converts it to an integer
+               int superPercent = Convert.ToInt32(userData[3].Replace("%", ""));
+               this.Super = Convert.ToInt32(this.GrossIncome * (superPercent / 100.0));
+               
+               // No need to reformat this
+               this.PayPeriod = userData[4];
+               
+               this.NetIncome = this.GrossIncome - this.Tax;
+          }
           private void CalculateTax(int salary)
           // Sets the property Tax to the correct tax value
           {
