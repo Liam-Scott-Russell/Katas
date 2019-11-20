@@ -135,6 +135,7 @@ namespace kata_payslip
                this.Tax = Math.Round(tax / 12); // Makes the tax for one month
           }
           
+          // Prints all of the individual data, once per line
           public void Print()
           {
                Console.WriteLine($"Name: {this.FullName}");
@@ -145,7 +146,13 @@ namespace kata_payslip
                Console.WriteLine($"Super: {this.Super}");
           }
 
-          
+          // Returns a comma-separated string of the information of the payslip when the object is printed
+          public override string ToString()
+          {
+               return $"{this.FullName}, {this.PayPeriod}, {this.GrossIncome}, {this.Tax}, {this.NetIncome}, {this.Super}"
+          }
+
+
           //Properties
           public string FullName { get; set; }
           public string PayPeriod { get; set; }
