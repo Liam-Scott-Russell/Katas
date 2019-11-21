@@ -52,24 +52,31 @@ namespace kata_tic_tac_toe_basic
         }
     }
 
-    class PlayerMove
+    class PlayerMove : PlayerInputtedMove
     {
         private string XCoordinate { get; set; }
         private string YCoordinate { get; set; }
+        private int[] Indices { get; set; }
         
         public PlayerMove(PlayerInputtedMove inputtedMove)
         {
-            
+            XCoordinate = inputtedMove.Xcoordinate;
+            YCoordinate = inputtedMove.Ycoordinate;
+            Indices = ToArrayIndices();
         }
 
         public bool IsCoordinateValid()
         {
-            return true;
+            bool isRowValid = 0 <= Indices[0] && Indices[0] <= 2;
+            bool isColValid = 0 <= Indices[1] && Indices[1] <= 2;
+            return isRowValid && isColValid;
         }
 
-        public bool IsCoordinateEmptyOnBoard(IBoard board)
+        public bool IsCoordinateEmptyOnBoard(GameState board)
         {
-            return false;
+
+            string currentSymbolOnBoard = board.CurrentBoardState[Indices[0], Indices[1]];
+            return (currentSymbolOnBoard == ".");
         }
 
         public int[] ToArrayIndices()
@@ -79,9 +86,9 @@ namespace kata_tic_tac_toe_basic
             return new int[] {xCoordinateArrayIndex, yCoordinateArrayIndex};
         }
 
-        public void DrawOnBoard(IBoard board)
+        public void DrawOnBoard(GameState board, string symbol)
         {
-            
+            board.CurrentBoardState[Indices[0], Indices[1]] = symbol;
         }
         
     }
