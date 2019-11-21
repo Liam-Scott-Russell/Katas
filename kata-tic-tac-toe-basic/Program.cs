@@ -24,7 +24,7 @@ namespace kata_tic_tac_toe_basic
 
     interface IBoard
     {
-        string[][] CurrentBoardState { get; set; }
+        string[,] CurrentBoardState { get; set; }
     }
 
     interface IGameState : IBoard
@@ -34,7 +34,7 @@ namespace kata_tic_tac_toe_basic
 
     class GameState : IGameState
     {
-        public string[][] CurrentBoardState { get; set; }
+        public string[,] CurrentBoardState { get; set; }
         public int CurrentPlayerTurn { get; set; }
     }
 
