@@ -6,7 +6,8 @@ namespace kata_tic_tac_toe_basic
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            GameController game = new GameController();
+            game.PlayGame();
         }
     }
     
@@ -87,14 +88,39 @@ namespace kata_tic_tac_toe_basic
 
     class GameController
     {
+        private GameState Game { get; set; } = new GameState();
+
+        public GameController()
+        {
+            string[,] blankBoard = new string[,] {{".", ".", "."}, {".", ".", "."}, {".", ".", "."}};
+            Game.CurrentBoardState = blankBoard;
+            Game.CurrentPlayerTurn = 1;
+        }
         public void PlayGame()
         {
-            
+            PrintCurrentBoard();
         }
 
         public string GetInput()
         {
             return "";
+        }
+
+        public void PrintCurrentBoard()
+        {
+            Console.Out.WriteLine("Move accepted, here's the current board:");
+            int rowLength = Game.CurrentBoardState.GetLength(0);
+            int colLength = Game.CurrentBoardState.GetLength(1);
+
+            for (int i = 0; i < rowLength; i++)
+            {
+                for (int j = 0; j < colLength; j++)
+                {
+                    Console.Write(string.Format("{0} ", Game.CurrentBoardState[i, j]));
+                }
+                Console.Write(Environment.NewLine);
+            }
+
         }
     }
 }
