@@ -26,24 +26,28 @@ namespace kata_tic_tac_toe_basic
     interface IGameState : IBoard
     {
         int CurrentPlayerTurn { get; set; }
+        int TurnsPlayed { get; set; }
     }
 
     class GameState : IGameState
     {
         public string[,] CurrentBoardState { get; set; }
         public int CurrentPlayerTurn { get; set; }
+        public int TurnsPlayed { get; set; }
     }
 
     class WinConditions
     {
-        static int WhichPlayerHasWon(IBoard currentBoard)
+        public static int WhichPlayerHasWon(GameState currentBoard)
         {
             return 0;
         }
 
-        static bool IsGameDraw(IBoard currentBoard)
+        public static bool IsGameDraw(GameState currentBoard)
         {
-            return false;
+            int boardRowHeight = currentBoard.CurrentBoardState.GetLength(0);
+            int numberOfSlotsInBoard = boardRowHeight * boardRowHeight;
+            return (currentBoard.TurnsPlayed + 1) < numberOfSlotsInBoard; // +1 because turns starts off as 0
         }
     }
 
@@ -91,6 +95,7 @@ namespace kata_tic_tac_toe_basic
         {
             string playerSymbol = PlayerToSymbolMapping[Board.CurrentPlayerTurn];
             Board.CurrentBoardState[Indices[0], Indices[1]] = playerSymbol;
+            Board.TurnsPlayed++;
         }
         
     }
@@ -104,10 +109,12 @@ namespace kata_tic_tac_toe_basic
             string[,] blankBoard = new string[,] {{".", ".", "."}, {".", ".", "."}, {".", ".", "."}};
             Game.CurrentBoardState = blankBoard;
             Game.CurrentPlayerTurn = 1;
+            Game.TurnsPlayed = 0;
         }
         public void PlayGame()
         {
             PrintCurrentBoard();
+            Console.Out.WriteLine(WinConditions.IsGameDraw(Game));
         }
 
         public string GetInput()
