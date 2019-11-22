@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace kata_tic_tac_toe_basic
 {
@@ -11,16 +12,10 @@ namespace kata_tic_tac_toe_basic
         }
     }
     
-    interface IPlayerInputtedMove
+    class RawPlayerMove
     {
-        string XCoordinate { get; set; }
-        string YCoordinate { get; set; }
-    }
-
-    class PlayerInputtedMove
-    {
-        public string Xcoordinate { get; set; }
-        public string Ycoordinate { get; set; }
+        public string XCoordinate { get; set; }
+        public string YCoordinate { get; set; }
     }
 
     interface IBoard
@@ -52,16 +47,22 @@ namespace kata_tic_tac_toe_basic
         }
     }
 
-    class PlayerMove : PlayerInputtedMove
+    class PlayerMove : RawPlayerMove
     {
-        private string XCoordinate { get; set; }
-        private string YCoordinate { get; set; }
+        private GameState Board { get; set; }
         private int[] Indices { get; set; }
-        
-        public PlayerMove(PlayerInputtedMove inputtedMove)
+
+        private Dictionary<int, string> PlayerToSymbolMapping { get; set; } = new Dictionary<int, string>
         {
-            XCoordinate = inputtedMove.Xcoordinate;
-            YCoordinate = inputtedMove.Ycoordinate;
+            {1, "X"},
+            {2, "O"}
+        };
+
+        public PlayerMove(RawPlayerMove inputtedMove, GameState board)
+        {
+            XCoordinate = inputtedMove.XCoordinate;
+            YCoordinate = inputtedMove.YCoordinate;
+            Board = board;
             Indices = ToArrayIndices();
         }
 
@@ -72,10 +73,10 @@ namespace kata_tic_tac_toe_basic
             return isRowValid && isColValid;
         }
 
-        public bool IsCoordinateEmptyOnBoard(GameState board)
+        public bool IsCoordinateEmptyOnBoard()
         {
 
-            string currentSymbolOnBoard = board.CurrentBoardState[Indices[0], Indices[1]];
+            string currentSymbolOnBoard = Board.CurrentBoardState[Indices[0], Indices[1]];
             return (currentSymbolOnBoard == ".");
         }
 
@@ -86,9 +87,10 @@ namespace kata_tic_tac_toe_basic
             return new int[] {xCoordinateArrayIndex, yCoordinateArrayIndex};
         }
 
-        public void DrawOnBoard(GameState board, string symbol)
+        public void DrawOnBoard()
         {
-            board.CurrentBoardState[Indices[0], Indices[1]] = symbol;
+            string playerSymbol = PlayerToSymbolMapping[Board.CurrentPlayerTurn];
+            Board.CurrentBoardState[Indices[0], Indices[1]] = playerSymbol;
         }
         
     }
