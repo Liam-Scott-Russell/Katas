@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace kata_tic_tac_toe_basic
 {
-    class WinConditions
+    static class WinConditions
     {
         public static bool PlayerHasWon(Board currentBoard, Player player)
         {

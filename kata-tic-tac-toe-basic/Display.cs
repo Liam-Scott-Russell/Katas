@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace kata_tic_tac_toe_basic
 {
-    class Display
+    static class Display
     {
         public static void ShowBoard(Board currentBoard)
         {

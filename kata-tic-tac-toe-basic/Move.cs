@@ -15,10 +15,10 @@ namespace kata_tic_tac_toe_basic
             SymbolToWrite = currentGameState.CurrentPlayer.Symbol;
         }
 
-        private int[] ConvertMoveToIndices(string playerMove)
+        private static int[] ConvertMoveToIndices(string playerMove)
         {
-            string[] separatedInput = playerMove.Split(",");
-            int[] coordinates = new int[]
+            var separatedInput = playerMove.Split(",");
+            var coordinates = new[]
             {
                 Convert.ToInt32(separatedInput[0]) - 1,
                 Convert.ToInt32(separatedInput[1]) - 1
@@ -40,7 +40,7 @@ namespace kata_tic_tac_toe_basic
 
         private bool IsBoardEmptyAtCoordinates()
         {
-            string currentSymbolAtCoordinates = GameBoard[Coordinates[0], Coordinates[1]];
+            var currentSymbolAtCoordinates = GameBoard[Coordinates[0], Coordinates[1]];
             return currentSymbolAtCoordinates == ".";
         }
 

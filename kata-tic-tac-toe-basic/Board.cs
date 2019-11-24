@@ -71,10 +71,10 @@ namespace kata_tic_tac_toe_basic
 
         private string[] GetPositiveDiagonal()
         {
-            string[] diagonal = new string[BoardDimension];
-            for (int i = 0; i < BoardDimension; i++)
+            var diagonal = new string[BoardDimension];
+            for (var i = 0; i < BoardDimension; i++)
             {
-                int columnIndex = BoardDimension - i - 1;
+                var columnIndex = BoardDimension - i - 1;
                 diagonal[i] = _boardState[i][columnIndex];
             }
 
@@ -83,8 +83,8 @@ namespace kata_tic_tac_toe_basic
 
         private string[] GetNegativeDiagonal()
         {
-            string[] diagonal = new string[BoardDimension];
-            for (int i = 0; i < BoardDimension; i++)
+            var diagonal = new string[BoardDimension];
+            for (var i = 0; i < BoardDimension; i++)
             {
                 diagonal[i] = _boardState[i][i];
             }

@@ -46,7 +46,7 @@ namespace kata_tic_tac_toe_basic
 
                 var userInput = Display.GetPlayersMove(GameState.CurrentPlayer);
                 if (userInput == "q") { break; }
-                Move userMove = new Move(userInput, GameState);
+                var userMove = new Move(userInput, GameState);
                 
                 if (!userMove.IsValid())
                 {
@@ -73,12 +73,6 @@ namespace kata_tic_tac_toe_basic
                 GameState.CurrentPlayer = GetNonActivePlayer();
                 Display.ClearScreen();
             }
-                
-        }
-
-        private void GameLoop()
-        {
-            
         }
     }
 }
