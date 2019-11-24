@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace kata_tic_tac_toe_basic
 {
-    public class Display
+    class Display
     {
-        static void ShowBoard(Board currentBoard)
+        public static void ShowBoard(Board currentBoard)
         {
             foreach (var row in currentBoard.Rows)
             {
@@ -13,16 +13,16 @@ namespace kata_tic_tac_toe_basic
             }
         }
 
-        static string GetPlayersMove(Player player)
+        public static string GetPlayersMove(Player player)
         {
             
             var displayMessage = $"Player {player.Number} enter a coord x,y to place your {player.Symbol} or enter 'q' to give up: ";
-            Alert(displayMessage);
+            AlertUser(displayMessage);
             var playerInput = Console.ReadLine();
             return playerInput;
         }
 
-        static void Alert(string message)
+        public static void AlertUser(string message)
         {
             Console.Out.WriteLine(message);
         }
