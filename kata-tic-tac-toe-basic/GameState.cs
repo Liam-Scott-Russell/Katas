@@ -1,15 +1,14 @@
 namespace kata_tic_tac_toe_basic
 {
-    interface IGameState : IBoard
+    interface IGameState
     {
-        int CurrentPlayerTurn { get; set; }
-        int TurnsPlayed { get; set; }
+        Player CurrentPlayer { get; set; }
+        Board CurrentBoard { get; set; }
     }
 
-    class GameState : IGameState
+    public class GameState : IGameState
     {
-        public string[,] CurrentBoardState { get; set; }
-        public int CurrentPlayerTurn { get; set; }
-        public int TurnsPlayed { get; set; }
+        public Board CurrentBoard { get; set; }
+        public Player CurrentPlayer { get; set; }
     }
 }
