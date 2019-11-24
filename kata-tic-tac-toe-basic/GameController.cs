@@ -1,81 +1,84 @@
 using System;
-using System.Collections.Generic;
 
 namespace kata_tic_tac_toe_basic
 {
     class GameController
     {
-        private GameState Game { get; set; } = new GameState();
-        private Dictionary<int, string> PlayerToSymbolMapping { get; set; } = new Dictionary<int, string>
-        {
-            {1, "X"},
-            {2, "O"}
-        };
+        private GameState GameState { get; set; }
 
         public GameController()
         {
-            string[,] blankBoard = new string[,] {{".", ".", "."}, {".", ".", "."}, {".", ".", "."}};
-            Game.CurrentBoardState = blankBoard;
-            Game.CurrentPlayerTurn = 1;
-            Game.TurnsPlayed = 0;
+            var gameBoard = new Board();
+            var player1 = new Player()
+            {
+                Number = 1,
+                Symbol = "X",
+            };
+            var player2 = new Player()
+            {
+                Number = 2,
+                Symbol = "O"
+            };
+            GameState = new GameState()
+            {
+                CurrentBoard = gameBoard,
+                CurrentPlayer = player1,
+                AllPlayers = new Player[2]
+                {
+                    player1,
+                    player2
+                }
+            };
         }
+
+        private Player GetNonActivePlayer()
+        {
+            var targetIndex = 2 - GameState.CurrentPlayer.Number;
+            return GameState.AllPlayers[targetIndex];
+        }
+
         public void PlayGame()
         {
-            PrintCurrentBoard();
+            Display.AlertUser("Welcome to Tic Tac Toe!");
             while (true)
             {
-                string userInput = GetInput();
-                if (userInput == "q")
+                Display.ShowBoard(GameState.CurrentBoard);
+
+                var userInput = Display.GetPlayersMove(GameState.CurrentPlayer);
+                if (userInput == "q") { break; }
+                Move userMove = new Move(userInput, GameState);
+                
+                if (!userMove.IsValid())
                 {
+                    Display.ClearScreen();
+                    Display.AlertUser("Sorry, that move is invalid, please try again ...");
+                    continue;
+                }
+                userMove.MakeMove();
+                
+                if (WinConditions.IsGameDraw(GameState.CurrentBoard))
+                {
+                    Display.AlertUser("The game is draw, no-one wins!");
+                    Display.ShowBoard(GameState.CurrentBoard);
+                    break;
+                }
+                
+                if (WinConditions.PlayerHasWon(GameState.CurrentBoard, GameState.CurrentPlayer))
+                {
+                    Display.AlertUser("You have won, congratulations!");
+                    Display.ShowBoard(GameState.CurrentBoard);
                     break;
                 }
 
-                string[] splitUserInput = userInput.Split(",");
-                PlayerMove move = new PlayerMove(new RawPlayerMove() 
-                    {XCoordinate = splitUserInput[0], YCoordinate = splitUserInput[1]}, Game);
+                GameState.CurrentPlayer = GetNonActivePlayer();
+                Display.ClearScreen();
+            }
                 
-                if (move.IsCoordinateValid() && move.IsCoordinateEmptyOnBoard())
-                {
-                    move.DrawOnBoard();
-                    
-                    switch (Game.CurrentPlayerTurn)
-                    {
-                        case 1:
-                            Game.CurrentPlayerTurn = 2;
-                            break;
-                        case 2:
-                            Game.CurrentPlayerTurn = 1;
-                            break;
-                    }
-                    Console.Clear();
-                    Console.Out.WriteLine("Move accepted!");
-                    PrintCurrentBoard();
-                }
-
-            }
         }
 
-        public string GetInput()
+        private void GameLoop()
         {
-            Console.Out.WriteLine($"Player {Game.CurrentPlayerTurn} enter a coord x,y to place your {PlayerToSymbolMapping[Game.CurrentPlayerTurn]} or enter 'q' to give up:");
-            return Console.ReadLine();
-        }
-
-        public void PrintCurrentBoard()
-        {
-            Console.Out.WriteLine("Here's the current board:");
-            int rowLength = Game.CurrentBoardState.GetLength(0);
-            int colLength = Game.CurrentBoardState.GetLength(1);
-
-            for (int i = 0; i < rowLength; i++)
-            {
-                for (int j = 0; j < colLength; j++)
-                {
-                    Console.Write(string.Format("{0} ", Game.CurrentBoardState[i, j]));
-                }
-                Console.Write(Environment.NewLine);
-            }
-
+            
         }
     }
 }
