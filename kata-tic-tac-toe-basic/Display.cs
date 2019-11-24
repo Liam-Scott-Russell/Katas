@@ -7,6 +7,7 @@ namespace kata_tic_tac_toe_basic
     {
         public static void ShowBoard(Board currentBoard)
         {
+            Display.AlertUser("Here's the current board:");
             foreach (var row in currentBoard.Rows)
             {
                 Console.Out.WriteLine(string.Join(" ", row));
@@ -25,6 +26,11 @@ namespace kata_tic_tac_toe_basic
         public static void AlertUser(string message)
         {
             Console.Out.WriteLine(message);
+        }
+
+        public static void ClearScreen()
+        {
+            Console.Clear();
         }
     }
 }
