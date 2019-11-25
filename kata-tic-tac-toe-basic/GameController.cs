@@ -48,14 +48,33 @@ namespace kata_tic_tac_toe_basic
 
                 var userInput = Display.GetPlayersMove(GameState.CurrentPlayer);
                 if (userInput == "q") { break; }
-                var userMove = new Move(userInput, GameState);
+
+                Move userMove;
                 
-                if (!userMove.IsValid())
+                if (Move.IsMatchForMoveInputFormat(userInput))
+                {
+                    userMove = new Move(userInput, GameState);
+                }
+                else
+                {
+                    Display.ClearScreen();
+                    Display.AlertUser("Sorry, that move is invalid, please try again ...");
+                    Display.AlertUser("The format for a move is <x-coordinate>,<y-coordinate>");
+                    Display.AlertUser("The top left corner has a coordinate of (1,1)");
+                    continue;
+                }
+                
+                if (userMove.IsCoordinatesValid() && userMove.IsBoardEmptyAtCoordinates())
+                {
+                    userMove.MakeMove();
+                }
+                else
                 {
                     Display.ClearScreen();
                     Display.AlertUser("Sorry, that move is invalid, please try again ...");
                     continue;
                 }
+                
                 userMove.MakeMove();
                 
                 if (WinConditions.IsGameDraw(GameState.CurrentBoard))
