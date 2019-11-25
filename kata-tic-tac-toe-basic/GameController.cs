@@ -65,8 +65,8 @@ namespace kata_tic_tac_toe_basic
 
         public void PlayGame()
         {
-            SetupGame();
             SetupBot();
+            SetupGame();
             
             while (true)
             {
@@ -125,7 +125,7 @@ namespace kata_tic_tac_toe_basic
                 
                 if (WinConditions.PlayerHasWon(GameState.CurrentBoard, GameState.CurrentPlayer))
                 {
-                    Display.AlertUser("You have won, congratulations!");
+                    Display.AlertUser($"Player {GameState.CurrentPlayer.Number} wins, congratulations!");
                     Display.ShowBoard(GameState.CurrentBoard);
                     
                     if (Display.AskUserToRepeatGame())
