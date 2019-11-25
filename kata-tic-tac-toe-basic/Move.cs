@@ -42,8 +42,8 @@ namespace kata_tic_tac_toe_basic
 
         public static bool IsMatchForMoveInputFormat(string possibleMove)
         {
-            Regex inputFormatRegex = new Regex(@"^(\d+,\d+)$");
-            MatchCollection matches = inputFormatRegex.Matches(possibleMove);
+            var inputFormatRegex = new Regex(@"^(\d+,\d+)$");
+            var matches = inputFormatRegex.Matches(possibleMove);
             return matches.Count == 1;
         }
 
