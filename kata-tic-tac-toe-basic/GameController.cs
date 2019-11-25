@@ -74,9 +74,7 @@ namespace kata_tic_tac_toe_basic
                     Display.AlertUser("Sorry, that move is invalid, please try again ...");
                     continue;
                 }
-                
-                userMove.MakeMove();
-                
+
                 if (WinConditions.IsGameDraw(GameState.CurrentBoard))
                 {
                     Display.AlertUser("The game is draw, no-one wins!");
