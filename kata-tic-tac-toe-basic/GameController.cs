@@ -39,6 +39,7 @@ namespace kata_tic_tac_toe_basic
 
         private void SetupGame()
         {
+            Display.ClearScreen();
             Display.AlertUser("Welcome to Tic Tac Toe!");
 
             var userSuppliedBoardSize = Display.AskUserForBoardSize();
@@ -88,6 +89,12 @@ namespace kata_tic_tac_toe_basic
                 {
                     Display.AlertUser("The game is draw, no-one wins!");
                     Display.ShowBoard(GameState.CurrentBoard);
+                    
+                    if (Display.AskUserToRepeatGame())
+                    {
+                        SetupGame();
+                        continue;
+                    }
                     break;
                 }
                 
@@ -95,6 +102,12 @@ namespace kata_tic_tac_toe_basic
                 {
                     Display.AlertUser("You have won, congratulations!");
                     Display.ShowBoard(GameState.CurrentBoard);
+                    
+                    if (Display.AskUserToRepeatGame())
+                    {
+                        SetupGame();
+                        continue;
+                    }
                     break;
                 }
 

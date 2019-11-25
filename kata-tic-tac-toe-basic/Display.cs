@@ -46,5 +46,23 @@ namespace kata_tic_tac_toe_basic
             var suppliedBoardSize = Convert.ToInt32(Console.ReadLine());
             return suppliedBoardSize;
         }
+
+        public static bool AskUserToRepeatGame()
+        {
+            while (true)
+            {
+                AlertUser("Do you want to play again? Type Y/N");
+                var userChoice = Console.ReadLine();
+                switch (userChoice)
+                {
+                    case "Y":
+                        return true;
+                    case "N":
+                        return false;
+                    default:
+                        continue;
+                }
+            }
+        }
     }
 }
