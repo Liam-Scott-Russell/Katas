@@ -24,8 +24,9 @@ namespace kata_tic_tac_toe_basic
             var randomNumber = new Random();
             while (true)
             {
-                var xCoordinate = randomNumber.Next(1, GameState.CurrentBoard.BoardDimension);
-                var yCoordinate = randomNumber.Next(1, GameState.CurrentBoard.BoardDimension);
+                int upperBoundForRandomNumber = GameState.CurrentBoard.BoardDimension + 1;
+                var xCoordinate = randomNumber.Next(1, upperBoundForRandomNumber);
+                var yCoordinate = randomNumber.Next(1, upperBoundForRandomNumber);
                 var formattedMove = $"{xCoordinate},{yCoordinate}";
                 var possibleMove = new Move(formattedMove, GameState);
                 if (possibleMove.IsCoordinatesValid() && possibleMove.IsBoardEmptyAtCoordinates())
