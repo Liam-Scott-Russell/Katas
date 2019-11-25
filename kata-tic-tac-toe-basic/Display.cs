@@ -35,7 +35,7 @@ namespace kata_tic_tac_toe_basic
 
         public static string AskPlayerForMarker(Player player)
         {
-            AlertUser($"Player {player.Number} enter your symbol");
+            AlertUser($"Please enter the symbol for player {player.Number}.");
             var playerInput = Console.ReadLine();
             return playerInput;
         }
