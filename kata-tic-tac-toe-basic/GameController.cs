@@ -45,6 +45,8 @@ namespace kata_tic_tac_toe_basic
             var userSuppliedBoardSize = Display.AskUserForBoardSize();
             GameState.CurrentBoard = new Board(userSuppliedBoardSize);
             
+            SetupBot();
+            
             GameState.AllPlayers[0].Symbol = Display.AskPlayerForMarker(GameState.AllPlayers[0]);
             GameState.AllPlayers[1].Symbol = Display.AskPlayerForMarker(GameState.AllPlayers[1]);
         }
@@ -67,9 +69,8 @@ namespace kata_tic_tac_toe_basic
 
         public void PlayGame()
         {
-            SetupBot();
             SetupGame();
-            
+
             while (true)
             {
                 Display.ShowBoard(GameState.CurrentBoard);
