@@ -6,7 +6,7 @@ namespace kata_tic_tac_toe_basic
     public class RobotPlayer : Player
     {
         public bool IsIntelligent { get; set; }
-        private GameState _gameState { get; set; }
+        private GameState GameState { get; set; }
         
         public RobotPlayer()
         {
@@ -15,7 +15,7 @@ namespace kata_tic_tac_toe_basic
 
         public Move GenerateMove(GameState currentGameState)
         {
-            _gameState = currentGameState;
+            GameState = currentGameState;
             return IsIntelligent ? GenerateSmartMove() : GenerateRandomMove();
         }
 
@@ -24,10 +24,10 @@ namespace kata_tic_tac_toe_basic
             var randomNumber = new Random();
             while (true)
             {
-                var xCoordinate = randomNumber.Next(1, _gameState.CurrentBoard.BoardDimension);
-                var yCoordinate = randomNumber.Next(1, _gameState.CurrentBoard.BoardDimension);
+                var xCoordinate = randomNumber.Next(1, GameState.CurrentBoard.BoardDimension);
+                var yCoordinate = randomNumber.Next(1, GameState.CurrentBoard.BoardDimension);
                 var formattedMove = $"{xCoordinate},{yCoordinate}";
-                var possibleMove = new Move(formattedMove, _gameState);
+                var possibleMove = new Move(formattedMove, GameState);
                 if (possibleMove.IsCoordinatesValid() && possibleMove.IsBoardEmptyAtCoordinates())
                 {
                     return possibleMove;
