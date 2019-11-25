@@ -49,30 +49,55 @@ namespace kata_tic_tac_toe_basic
             GameState.AllPlayers[1].Symbol = Display.AskPlayerForMarker(GameState.AllPlayers[1]);
         }
 
+        private void SetupBot()
+        {
+            bool userWantsToPlayBot = Display.AskUserToPlayAgainstBot();
+            if (userWantsToPlayBot)
+            {
+                GameState.AllPlayers[1] = new RobotPlayer()
+                {
+                    IsIntelligent = false,
+                    Number = 2,
+                    Symbol = "O"
+                };
+            }
+        }
+
         public void PlayGame()
         {
             SetupGame();
+            SetupBot();
+            
             while (true)
             {
                 Display.ShowBoard(GameState.CurrentBoard);
-
-                var userInput = Display.GetPlayersMove(GameState.CurrentPlayer);
-                if (userInput == "q") { break; }
-
-                Move userMove;
                 
-                if (Move.IsMatchForMoveInputFormat(userInput))
+                Move userMove;
+
+                if (GameState.CurrentPlayer.IsBot)
                 {
-                    userMove = new Move(userInput, GameState);
+                    RobotPlayer bot = (RobotPlayer) GameState.CurrentPlayer;
+                    userMove = bot.GenerateMove(GameState);
                 }
                 else
                 {
-                    Display.ClearScreen();
-                    Display.AlertUser("Sorry, that move is invalid, please try again ...");
-                    Display.AlertUser("The format for a move is <x-coordinate>,<y-coordinate>");
-                    Display.AlertUser("The top left corner has a coordinate of (1,1)");
-                    continue;
+                    var userInput = Display.GetPlayersMove(GameState.CurrentPlayer);
+                    if (userInput == "q") { break; }
+                    
+                    if (Move.IsMatchForMoveInputFormat(userInput))
+                    {
+                        userMove = new Move(userInput, GameState);
+                    }
+                    else
+                    {
+                        Display.ClearScreen();
+                        Display.AlertUser("Sorry, that move is invalid, please try again ...");
+                        Display.AlertUser("The format for a move is <x-coordinate>,<y-coordinate>");
+                        Display.AlertUser("The top left corner has a coordinate of (1,1)");
+                        continue;
+                    }
                 }
+                
                 
                 if (userMove.IsCoordinatesValid() && userMove.IsBoardEmptyAtCoordinates())
                 {

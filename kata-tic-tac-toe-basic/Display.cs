@@ -64,5 +64,23 @@ namespace kata_tic_tac_toe_basic
                 }
             }
         }
+
+        public static bool AskUserToPlayAgainstBot()
+        {
+            AlertUser("Do you want to play against a bot? Type Y/N");
+            while (true)
+            {
+                var userChoice = Console.ReadLine();
+                switch (userChoice)
+                {
+                    case "Y":
+                        return true;
+                    case "N":
+                        return false;
+                    default:
+                        continue;
+                }
+            }
+        }
     }
 }
