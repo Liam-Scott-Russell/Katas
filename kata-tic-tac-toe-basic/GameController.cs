@@ -54,12 +54,14 @@ namespace kata_tic_tac_toe_basic
             bool userWantsToPlayBot = Display.AskUserToPlayAgainstBot();
             if (userWantsToPlayBot)
             {
-                GameState.AllPlayers[1] = new RobotPlayer()
+                int botPlayerNumber = Display.AskUserForBotNumber();
+                GameState.AllPlayers[botPlayerNumber - 1] = new RobotPlayer()
                 {
                     IsIntelligent = false,
-                    Number = 2,
-                    Symbol = "O"
+                    Number = botPlayerNumber
                 };
+                
+                GameState.CurrentPlayer = GameState.AllPlayers[0];
             }
         }
 

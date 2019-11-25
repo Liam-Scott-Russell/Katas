@@ -82,5 +82,23 @@ namespace kata_tic_tac_toe_basic
                 }
             }
         }
+
+        public static int AskUserForBotNumber()
+        {
+            AlertUser("Which player should the bot be: 1 or 2");
+            while (true)
+            {
+                var userChoice = Console.ReadLine();
+                switch (userChoice)
+                {
+                    case "1":
+                        return 1;
+                    case "2":
+                        return 2;
+                    default:
+                        continue;
+                }
+            }
+        }
     }
 }
