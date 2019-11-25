@@ -38,9 +38,9 @@ namespace kata_tic_tac_toe_basic
         }
         public int EmptySpaces { get; set; }
 
-        public Board()
+        public Board(int dimension)
         {
-            BoardDimension = 3;
+            BoardDimension = dimension;
             EmptySpaces = BoardDimension * BoardDimension;
             SetBoardToBlank();
         }

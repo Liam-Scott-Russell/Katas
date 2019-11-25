@@ -8,7 +8,9 @@ namespace kata_tic_tac_toe_basic
 
         public GameController()
         {
-            var gameBoard = new Board();
+            // Set to 3 by default, but is overwritten later by the user.
+            Board gameBoard = new Board(3);
+            
             var player1 = new Player()
             {
                 Number = 1,
@@ -35,13 +37,20 @@ namespace kata_tic_tac_toe_basic
             return GameState.AllPlayers[targetIndex];
         }
 
-        public void PlayGame()
+        private void SetupGame()
         {
             Display.AlertUser("Welcome to Tic Tac Toe!");
 
+            var userSuppliedBoardSize = Display.AskUserForBoardSize();
+            GameState.CurrentBoard = new Board(userSuppliedBoardSize);
+            
             GameState.AllPlayers[0].Symbol = Display.AskPlayerForMarker(GameState.AllPlayers[0]);
             GameState.AllPlayers[1].Symbol = Display.AskPlayerForMarker(GameState.AllPlayers[1]);
-            
+        }
+
+        public void PlayGame()
+        {
+            SetupGame();
             while (true)
             {
                 Display.ShowBoard(GameState.CurrentBoard);

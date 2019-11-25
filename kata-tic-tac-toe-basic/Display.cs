@@ -39,5 +39,12 @@ namespace kata_tic_tac_toe_basic
             var playerInput = Console.ReadLine();
             return playerInput;
         }
+
+        public static int AskUserForBoardSize()
+        {
+            AlertUser("Please enter a size for the board from 3 -> 10");
+            var suppliedBoardSize = Convert.ToInt32(Console.ReadLine());
+            return suppliedBoardSize;
+        }
     }
 }
