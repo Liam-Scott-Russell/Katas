@@ -32,5 +32,12 @@ namespace kata_tic_tac_toe_basic
         {
             Console.Clear();
         }
+
+        public static string AskPlayerForMarker(Player player)
+        {
+            AlertUser($"Player {player.Number} enter your symbol");
+            var playerInput = Console.ReadLine();
+            return playerInput;
+        }
     }
 }

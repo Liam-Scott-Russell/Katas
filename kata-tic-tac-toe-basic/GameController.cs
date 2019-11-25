@@ -12,12 +12,10 @@ namespace kata_tic_tac_toe_basic
             var player1 = new Player()
             {
                 Number = 1,
-                Symbol = "X",
             };
             var player2 = new Player()
             {
                 Number = 2,
-                Symbol = "O"
             };
             GameState = new GameState()
             {
@@ -40,6 +38,10 @@ namespace kata_tic_tac_toe_basic
         public void PlayGame()
         {
             Display.AlertUser("Welcome to Tic Tac Toe!");
+
+            GameState.AllPlayers[0].Symbol = Display.AskPlayerForMarker(GameState.AllPlayers[0]);
+            GameState.AllPlayers[1].Symbol = Display.AskPlayerForMarker(GameState.AllPlayers[1]);
+            
             while (true)
             {
                 Display.ShowBoard(GameState.CurrentBoard);
