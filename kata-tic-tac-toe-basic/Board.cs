@@ -92,7 +92,7 @@ namespace kata_tic_tac_toe_basic
             return diagonal;
         }
 
-        private void SetBoardToBlank()
+        public void SetBoardToBlank()
         {
             _boardState = new string[BoardDimension][];
             for (var rowNum = 0; rowNum < BoardDimension; rowNum++)

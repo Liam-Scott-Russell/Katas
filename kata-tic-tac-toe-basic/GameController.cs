@@ -67,6 +67,14 @@ namespace kata_tic_tac_toe_basic
             }
         }
 
+        private void ResetGame()
+        {
+            Display.ClearScreen();
+            var board = GameState.CurrentBoard;
+            board.SetBoardToBlank();
+            board.EmptySpaces = board.BoardDimension * board.BoardDimension;
+        }
+
         public void PlayGame()
         {
             SetupGame();
@@ -133,7 +141,7 @@ namespace kata_tic_tac_toe_basic
                     
                     if (Display.AskUserToRepeatGame())
                     {
-                        SetupGame();
+                        ResetGame();
                         continue;
                     }
                     break;
