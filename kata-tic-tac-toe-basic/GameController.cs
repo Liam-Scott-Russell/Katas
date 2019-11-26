@@ -31,12 +31,6 @@ namespace kata_tic_tac_toe_basic
             };
         }
 
-        private Player GetNonActivePlayer()
-        {
-            var targetIndex = 2 - GameState.CurrentPlayer.Number;
-            return GameState.AllPlayers[targetIndex];
-        }
-
         private void SetupGame()
         {
             Display.ClearScreen();
@@ -147,7 +141,8 @@ namespace kata_tic_tac_toe_basic
                     break;
                 }
 
-                GameState.CurrentPlayer = GetNonActivePlayer();
+                GameState.SwapActivePlayer();
+                
                 Display.ClearScreen();
             }
         }

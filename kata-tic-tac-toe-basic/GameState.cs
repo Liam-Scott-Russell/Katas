@@ -12,5 +12,13 @@ namespace kata_tic_tac_toe_basic
         public Board CurrentBoard { get; set; }
         public Player CurrentPlayer { get; set; }
         public Player[] AllPlayers { get; set; }
+        
+        public void SwapActivePlayer()
+        {
+            var targetIndex = 2 - CurrentPlayer.Number;
+            CurrentPlayer =  AllPlayers[targetIndex];
+        }
     }
+    
+    
 }
