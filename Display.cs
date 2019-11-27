@@ -24,5 +24,10 @@ namespace Game_Of_Life
                 Console.Write(Environment.NewLine);
             }
         }
+
+        public static void AlertUser(string message)
+        {
+            Console.WriteLine(message);
+        }
     }
 }
