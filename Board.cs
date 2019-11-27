@@ -23,6 +23,16 @@ namespace Game_Of_Life
         public void UpdateCells()
         {
             CalculateCellsNextState();
+            
+            for (var row = 0; row < Height; row++)
+            {
+                for (var col = 0; col < Width; col++)
+                {
+                    Cell currentCell = Cells[row, col];
+
+                    currentCell.IsLiving = currentCell.WillLiveNextRound;
+                }
+            }
         }
 
         private void CalculateCellsNextState()
