@@ -2,7 +2,7 @@ using System;
 
 namespace Game_Of_Life
 {
-    public class Display
+    public static class Display
     {
         public static void ShowBoard(Board board)
         {
@@ -19,9 +19,7 @@ namespace Game_Of_Life
                     {
                         Console.Write("  ");
                     }
-                    
                 }
-                
                 Console.Write(Environment.NewLine);
             }
         }
