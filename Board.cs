@@ -64,8 +64,8 @@ namespace Game_Of_Life
 
         private Point AdjustPointToFitInBoard(Point point)
         {
-            point.XCoordinate = NegativeAdjustedModulo(point.XCoordinate, (Height - 1));
-            point.YCoordinate = NegativeAdjustedModulo(point.YCoordinate, (Width - 1));
+            point.XCoordinate = NegativeAdjustedModulo(point.XCoordinate, Height);
+            point.YCoordinate = NegativeAdjustedModulo(point.YCoordinate, Width);
             return point;
         }
 
