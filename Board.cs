@@ -22,12 +22,27 @@ namespace Game_Of_Life
 
         public void UpdateCells()
         {
-            
+            CalculateCellsNextState();
         }
 
         private void CalculateCellsNextState()
         {
-            
+            for (var row = 0; row < Height; row++)
+            {
+                for (var col = 0; col < Width; col++)
+                {
+                    Cell currentCell = Cells[row, col];
+                    
+                    if (currentCell.IsLiving)
+                    {
+                        currentCell.WillLiveNextRound = GameRules.CellWillLive(currentCell);
+                    }
+                    else
+                    {
+                        currentCell.WillLiveNextRound = GameRules.CellWillRevive(currentCell);
+                    }
+                }
+            }
         }
 
         public void CalculateCellNeighbours()
