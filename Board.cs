@@ -1,3 +1,5 @@
+using System;
+
 namespace Game_Of_Life
 {
     interface IBoard
@@ -99,6 +101,28 @@ namespace Game_Of_Life
         private int NegativeAdjustedModulo(int x, int m)
         {
             return (x%m + m)%m;
+        }
+
+        public void RandomlyAssignCellStates()
+        {
+            
+            
+            for (var row = 0; row < Height; row++)
+            {
+                for (var col = 0; col < Width; col++)
+                {
+                    Cells[row, col] = new Cell(new Point(row, col), GenerateRandomTrueOrFalse());
+                }
+            }
+        }
+
+        private bool GenerateRandomTrueOrFalse()
+        {
+            var randomNumber = new Random();
+            
+            int randInt = randomNumber.Next(0, 2);
+
+            return randInt == 1;
         }
     }
 }
