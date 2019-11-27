@@ -29,5 +29,16 @@ namespace Game_Of_Life
         {
             Console.WriteLine(message);
         }
+
+        public static void ClearScreen()
+        {
+            Console.Clear();
+        }
+
+        public static string AskUserForBoardSize()
+        {
+            AlertUser("Please enter a board size with the format <width>,<height>");
+            return Console.ReadLine();
+        }
     }
 }
