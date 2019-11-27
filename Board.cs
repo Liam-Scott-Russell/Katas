@@ -43,7 +43,7 @@ namespace Game_Of_Life
                     var southPoint = AdjustPointToFitInBoard(new Point(row + 1, col));
                     var southWestPoint = AdjustPointToFitInBoard(new Point(row + 1, col - 1));
                     var westPoint = AdjustPointToFitInBoard(new Point(row, col - 1));
-                    var northWestPoint = AdjustPointToFitInBoard(new Point(row - 1, col));
+                    var northWestPoint = AdjustPointToFitInBoard(new Point(row - 1, col - 1));
                         
                     var cellNeighbourhood = new Neighbourhood()
                     {
