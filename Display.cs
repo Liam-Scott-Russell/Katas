@@ -6,6 +6,7 @@ namespace Game_Of_Life
     {
         public static void ShowBoard(Board board)
         {
+            ClearScreen();
             for (int i = 0; i < board.Height; i++)
             {
                 for (int j = 0; j < board.Width; j++)
