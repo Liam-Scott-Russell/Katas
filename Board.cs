@@ -2,14 +2,14 @@ namespace Game_Of_Life
 {
     interface IBoard
     {
-        Cell[] Cells { get; }
+        Cell[,] Cells { get; }
         int Width { get; }
         int Height { get; }
     }
     
     public class Board : IBoard
     {
-        public Cell[] Cells { get; }
+        public Cell[,] Cells { get; }
         public int Width { get; }
         public int Height { get; }
 
@@ -17,6 +17,7 @@ namespace Game_Of_Life
         {
             Width = width;
             Height = height;
+            Cells = new Cell[Height, Width];
         }
 
         public void UpdateCells()
@@ -31,7 +32,48 @@ namespace Game_Of_Life
 
         public void CalculateCellNeighbours()
         {
-            
+            for (var row = 0; row < Height; row++)
+            {
+                for (var col = 0; col < Width; col++)
+                {
+                    var northPoint = AdjustPointToFitInBoard(new Point(row - 1, col));
+                    var northEastPoint = AdjustPointToFitInBoard(new Point(row - 1, col + 1));
+                    var eastPoint = AdjustPointToFitInBoard(new Point(row, col + 1));
+                    var southEastPoint = AdjustPointToFitInBoard(new Point(row + 1, col + 1));
+                    var southPoint = AdjustPointToFitInBoard(new Point(row + 1, col));
+                    var southWestPoint = AdjustPointToFitInBoard(new Point(row + 1, col - 1));
+                    var westPoint = AdjustPointToFitInBoard(new Point(row, col - 1));
+                    var northWestPoint = AdjustPointToFitInBoard(new Point(row - 1, col));
+                        
+                    var cellNeighbourhood = new Neighbourhood()
+                    {
+                        North = Cells[northPoint.XCoordinate, northPoint.YCoordinate],
+                        NorthEast = Cells[northEastPoint.XCoordinate, northEastPoint.YCoordinate],
+                        East = Cells[eastPoint.XCoordinate, eastPoint.YCoordinate],
+                        SouthEast = Cells[southEastPoint.XCoordinate, southEastPoint.YCoordinate],
+                        South = Cells[southPoint.XCoordinate, southPoint.YCoordinate],
+                        SouthWest = Cells[southWestPoint.XCoordinate, southWestPoint.YCoordinate],
+                        West = Cells[westPoint.XCoordinate, westPoint.YCoordinate],
+                        NorthWest = Cells[northWestPoint.XCoordinate, northWestPoint.YCoordinate]
+                    };
+
+                    Cells[row, col].Neighbours = cellNeighbourhood;
+                }
+            }
+        }
+
+        private Point AdjustPointToFitInBoard(Point point)
+        {
+            point.XCoordinate = NegativeAdjustedModulo(point.XCoordinate, (Height - 1));
+            point.YCoordinate = NegativeAdjustedModulo(point.YCoordinate, (Width - 1));
+            return point;
+        }
+
+        // C# doesn't actually have a modulo operation, but rather approximates
+        //     it using a remainder (so it doesn't work with negatives).
+        private int NegativeAdjustedModulo(int x, int m)
+        {
+            return (x%m + m)%m;
         }
     }
 }

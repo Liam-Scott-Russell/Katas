@@ -2,14 +2,14 @@ namespace Game_Of_Life
 {
     public interface ICell
     {
-        Cell[] Neighbours { get; set; }
+        Neighbourhood Neighbours { get; set; }
         bool IsLiving { get; set; }
         Point Coordinates { get; }
         bool WillLiveNextRound { get; set; }
     }
     public class Cell : ICell
     {
-        public Cell[] Neighbours { get; set; } = new Cell[8];
+        public Neighbourhood Neighbours { get; set; }
         public bool IsLiving { get; set; }
         public Point Coordinates { get; }
         public bool WillLiveNextRound { get; set; }

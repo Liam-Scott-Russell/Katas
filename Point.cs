@@ -10,7 +10,5 @@ namespace Game_Of_Life
             XCoordinate = x;
             YCoordinate = y;
         }
-        
-        
     }
 }
