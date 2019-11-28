@@ -4,33 +4,33 @@ namespace Algorithm
 {
     public class Finder
     {
-        private readonly List<Person> _p;
+        private readonly List<Person> _allPeople;
 
-        public Finder(List<Person> p)
+        public Finder(List<Person> allPeople)
         {
-            _p = p;
+            _allPeople = allPeople;
         }
 
         public PairOfPeople Find(FT ft)
         {
             var tr = new List<PairOfPeople>();
 
-            for(var i = 0; i < _p.Count - 1; i++)
+            for(var i = 0; i < _allPeople.Count - 1; i++)
             {
-                for(var j = i + 1; j < _p.Count; j++)
+                for(var j = i + 1; j < _allPeople.Count; j++)
                 {
                     var r = new PairOfPeople();
-                    if(_p[i].BirthDate < _p[j].BirthDate)
+                    if(_allPeople[i].BirthDate < _allPeople[j].BirthDate)
                     {
-                        r.P1 = _p[i];
-                        r.P2 = _p[j];
+                        r.FirstPerson = _allPeople[i];
+                        r.SecondPerson = _allPeople[j];
                     }
                     else
                     {
-                        r.P1 = _p[j];
-                        r.P2 = _p[i];
+                        r.FirstPerson = _allPeople[j];
+                        r.SecondPerson = _allPeople[i];
                     }
-                    r.D = r.P2.BirthDate - r.P1.BirthDate;
+                    r.AgeDifference = r.SecondPerson.BirthDate - r.FirstPerson.BirthDate;
                     tr.Add(r);
                 }
             }
@@ -46,14 +46,14 @@ namespace Algorithm
                 switch(ft)
                 {
                     case FT.One:
-                        if(result.D < answer.D)
+                        if(result.AgeDifference < answer.AgeDifference)
                         {
                             answer = result;
                         }
                         break;
 
                     case FT.Two:
-                        if(result.D > answer.D)
+                        if(result.AgeDifference > answer.AgeDifference)
                         {
                             answer = result;
                         }

@@ -14,8 +14,8 @@ namespace Algorithm.Test
 
             var result = finder.Find(FT.One);
 
-            Assert.Null(result.P1);
-            Assert.Null(result.P2);
+            Assert.Null(result.FirstPerson);
+            Assert.Null(result.SecondPerson);
         }
 
         [Fact]
@@ -26,8 +26,8 @@ namespace Algorithm.Test
 
             var result = finder.Find(FT.One);
 
-            Assert.Null(result.P1);
-            Assert.Null(result.P2);
+            Assert.Null(result.FirstPerson);
+            Assert.Null(result.SecondPerson);
         }
 
         [Fact]
@@ -38,8 +38,8 @@ namespace Algorithm.Test
 
             var result = finder.Find(FT.One);
 
-            Assert.Same(sue, result.P1);
-            Assert.Same(greg, result.P2);
+            Assert.Same(sue, result.FirstPerson);
+            Assert.Same(greg, result.SecondPerson);
         }
 
         [Fact]
@@ -50,8 +50,8 @@ namespace Algorithm.Test
 
             var result = finder.Find(FT.Two);
 
-            Assert.Same(greg, result.P1);
-            Assert.Same(mike, result.P2);
+            Assert.Same(greg, result.FirstPerson);
+            Assert.Same(mike, result.SecondPerson);
         }
 
         [Fact]
@@ -62,8 +62,8 @@ namespace Algorithm.Test
 
             var result = finder.Find(FT.Two);
 
-            Assert.Same(sue, result.P1);
-            Assert.Same(sarah, result.P2);
+            Assert.Same(sue, result.FirstPerson);
+            Assert.Same(sarah, result.SecondPerson);
         }
 
         [Fact]
@@ -74,8 +74,8 @@ namespace Algorithm.Test
 
             var result = finder.Find(FT.One);
 
-            Assert.Same(sue, result.P1);
-            Assert.Same(greg, result.P2);
+            Assert.Same(sue, result.FirstPerson);
+            Assert.Same(greg, result.SecondPerson);
         }
 
         Person sue = new Person() {Name = "Sue", BirthDate = new DateTime(1950, 1, 1)};
