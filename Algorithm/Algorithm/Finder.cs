@@ -11,15 +11,15 @@ namespace Algorithm
             _p = p;
         }
 
-        public F Find(FT ft)
+        public PairOfPeople Find(FT ft)
         {
-            var tr = new List<F>();
+            var tr = new List<PairOfPeople>();
 
             for(var i = 0; i < _p.Count - 1; i++)
             {
                 for(var j = i + 1; j < _p.Count; j++)
                 {
-                    var r = new F();
+                    var r = new PairOfPeople();
                     if(_p[i].BirthDate < _p[j].BirthDate)
                     {
                         r.P1 = _p[i];
@@ -37,10 +37,10 @@ namespace Algorithm
 
             if(tr.Count < 1)
             {
-                return new F();
+                return new PairOfPeople();
             }
 
-            F answer = tr[0];
+            PairOfPeople answer = tr[0];
             foreach(var result in tr)
             {
                 switch(ft)
