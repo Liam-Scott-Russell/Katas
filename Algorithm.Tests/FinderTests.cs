@@ -12,7 +12,7 @@ namespace Algorithm.Test
             var list = new List<Person>();
             var finder = new Finder(list);
 
-            var result = finder.Find(FT.One);
+            var result = finder.Find(AgeDifference.Smallest);
 
             Assert.Null(result.FirstPerson);
             Assert.Null(result.SecondPerson);
@@ -24,7 +24,7 @@ namespace Algorithm.Test
             var list = new List<Person>() { sue };
             var finder = new Finder(list);
 
-            var result = finder.Find(FT.One);
+            var result = finder.Find(AgeDifference.Smallest);
 
             Assert.Null(result.FirstPerson);
             Assert.Null(result.SecondPerson);
@@ -36,7 +36,7 @@ namespace Algorithm.Test
             var list = new List<Person>() { sue, greg };
             var finder = new Finder(list);
 
-            var result = finder.Find(FT.One);
+            var result = finder.Find(AgeDifference.Smallest);
 
             Assert.Same(sue, result.FirstPerson);
             Assert.Same(greg, result.SecondPerson);
@@ -48,7 +48,7 @@ namespace Algorithm.Test
             var list = new List<Person>() { greg, mike };
             var finder = new Finder(list);
 
-            var result = finder.Find(FT.Two);
+            var result = finder.Find(AgeDifference.Largest);
 
             Assert.Same(greg, result.FirstPerson);
             Assert.Same(mike, result.SecondPerson);
@@ -60,7 +60,7 @@ namespace Algorithm.Test
             var list = new List<Person>() { greg, mike, sarah, sue };
             var finder = new Finder(list);
 
-            var result = finder.Find(FT.Two);
+            var result = finder.Find(AgeDifference.Largest);
 
             Assert.Same(sue, result.FirstPerson);
             Assert.Same(sarah, result.SecondPerson);
@@ -72,7 +72,7 @@ namespace Algorithm.Test
             var list = new List<Person>() { greg, mike, sarah, sue };
             var finder = new Finder(list);
 
-            var result = finder.Find(FT.One);
+            var result = finder.Find(AgeDifference.Smallest);
 
             Assert.Same(sue, result.FirstPerson);
             Assert.Same(greg, result.SecondPerson);
