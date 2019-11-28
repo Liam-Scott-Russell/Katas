@@ -13,55 +13,55 @@ namespace Algorithm
 
         public PairOfPeople Find(AgeDifference ageDifference)
         {
-            var tr = new List<PairOfPeople>();
+            var pairOfPeoples = new List<PairOfPeople>();
 
             for(var i = 0; i < _allPeople.Count - 1; i++)
             {
                 for(var j = i + 1; j < _allPeople.Count; j++)
                 {
-                    var r = new PairOfPeople();
+                    var currentPair = new PairOfPeople();
                     if(_allPeople[i].BirthDate < _allPeople[j].BirthDate)
                     {
-                        r.FirstPerson = _allPeople[i];
-                        r.SecondPerson = _allPeople[j];
+                        currentPair.FirstPerson = _allPeople[i];
+                        currentPair.SecondPerson = _allPeople[j];
                     }
                     else
                     {
-                        r.FirstPerson = _allPeople[j];
-                        r.SecondPerson = _allPeople[i];
+                        currentPair.FirstPerson = _allPeople[j];
+                        currentPair.SecondPerson = _allPeople[i];
                     }
-                    r.AgeDifference = r.SecondPerson.BirthDate - r.FirstPerson.BirthDate;
-                    tr.Add(r);
+                    currentPair.AgeDifference = currentPair.SecondPerson.BirthDate - currentPair.FirstPerson.BirthDate;
+                    pairOfPeoples.Add(currentPair);
                 }
             }
 
-            if(tr.Count < 1)
+            if(pairOfPeoples.Count < 1)
             {
                 return new PairOfPeople();
             }
 
-            PairOfPeople answer = tr[0];
-            foreach(var result in tr)
+            PairOfPeople target = pairOfPeoples[0];
+            foreach(var current in pairOfPeoples)
             {
                 switch(ageDifference)
                 {
                     case AgeDifference.Smallest:
-                        if(result.AgeDifference < answer.AgeDifference)
+                        if(current.AgeDifference < target.AgeDifference)
                         {
-                            answer = result;
+                            target = current;
                         }
                         break;
 
                     case AgeDifference.Largest:
-                        if(result.AgeDifference > answer.AgeDifference)
+                        if(current.AgeDifference > target.AgeDifference)
                         {
-                            answer = result;
+                            target = current;
                         }
                         break;
                 }
             }
 
-            return answer;
+            return target;
         }
     }
 }
