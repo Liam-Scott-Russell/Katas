@@ -4,64 +4,64 @@ namespace Algorithm
 {
     public class Finder
     {
-        private readonly List<Thing> _p;
+        private readonly List<Person> _allPeople;
 
-        public Finder(List<Thing> p)
+        public Finder(List<Person> allPeople)
         {
-            _p = p;
+            _allPeople = allPeople;
         }
 
-        public F Find(FT ft)
+        public PairOfPeople Find(AgeDifference ageDifference)
         {
-            var tr = new List<F>();
+            var pairOfPeoples = new List<PairOfPeople>();
 
-            for(var i = 0; i < _p.Count - 1; i++)
+            for(var i = 0; i < _allPeople.Count - 1; i++)
             {
-                for(var j = i + 1; j < _p.Count; j++)
+                for(var j = i + 1; j < _allPeople.Count; j++)
                 {
-                    var r = new F();
-                    if(_p[i].BirthDate < _p[j].BirthDate)
+                    var currentPair = new PairOfPeople();
+                    if(_allPeople[i].BirthDate < _allPeople[j].BirthDate)
                     {
-                        r.P1 = _p[i];
-                        r.P2 = _p[j];
+                        currentPair.FirstPerson = _allPeople[i];
+                        currentPair.SecondPerson = _allPeople[j];
                     }
                     else
                     {
-                        r.P1 = _p[j];
-                        r.P2 = _p[i];
+                        currentPair.FirstPerson = _allPeople[j];
+                        currentPair.SecondPerson = _allPeople[i];
                     }
-                    r.D = r.P2.BirthDate - r.P1.BirthDate;
-                    tr.Add(r);
+                    currentPair.AgeDifference = currentPair.SecondPerson.BirthDate - currentPair.FirstPerson.BirthDate;
+                    pairOfPeoples.Add(currentPair);
                 }
             }
 
-            if(tr.Count < 1)
+            if(pairOfPeoples.Count < 1)
             {
-                return new F();
+                return new PairOfPeople();
             }
 
-            F answer = tr[0];
-            foreach(var result in tr)
+            PairOfPeople target = pairOfPeoples[0];
+            foreach(var current in pairOfPeoples)
             {
-                switch(ft)
+                switch(ageDifference)
                 {
-                    case FT.One:
-                        if(result.D < answer.D)
+                    case AgeDifference.Smallest:
+                        if(current.AgeDifference < target.AgeDifference)
                         {
-                            answer = result;
+                            target = current;
                         }
                         break;
 
-                    case FT.Two:
-                        if(result.D > answer.D)
+                    case AgeDifference.Largest:
+                        if(current.AgeDifference > target.AgeDifference)
                         {
-                            answer = result;
+                            target = current;
                         }
                         break;
                 }
             }
 
-            return answer;
+            return target;
         }
     }
 }
