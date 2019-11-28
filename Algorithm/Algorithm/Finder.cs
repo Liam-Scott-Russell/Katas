@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Algorithm
 {
@@ -13,55 +14,77 @@ namespace Algorithm
 
         public PairOfPeople Find(AgeDifference ageDifference)
         {
-            var pairOfPeoples = new List<PairOfPeople>();
+            PairOfPeople output = new PairOfPeople();
 
-            for(var i = 0; i < _allPeople.Count - 1; i++)
+            if (_allPeople.Count <= 1)
             {
-                for(var j = i + 1; j < _allPeople.Count; j++)
+                return output;
+            }
+
+            var sortedPeople = SortPeopleByBirthDate();
+            
+            switch (ageDifference)
+            {
+                case AgeDifference.Largest:
+                    output = GetLargestAgeDifference(sortedPeople);
+                    break;
+                case AgeDifference.Smallest:
+                    output = GetSmallestAgeDifference(sortedPeople);
+                    break;
+            }
+
+            return output;
+        }
+
+        private List<Person> SortPeopleByBirthDate()
+        {
+            return _allPeople.OrderBy(person => person.BirthDate).ToList();
+        }
+
+        private PairOfPeople GetLargestAgeDifference(List<Person> sortedPeople)
+        {
+            var indexOfPastPerson = sortedPeople.Count - 1;
+            var oldestPerson = sortedPeople[indexOfPastPerson];
+            var youngestPerson = sortedPeople[0];
+            var ageGap = oldestPerson.BirthDate - youngestPerson.BirthDate;
+
+            var largestAgeGapPair = new PairOfPeople()
+            {
+                FirstPerson = youngestPerson,
+                SecondPerson = oldestPerson,
+                AgeDifference = ageGap
+            };
+
+            return largestAgeGapPair;
+        }
+        
+        private PairOfPeople GetSmallestAgeDifference(List<Person> sortedPeople)
+        {
+            var smallestAgeDifferenceSoFar = new PairOfPeople()
+            {
+                FirstPerson = sortedPeople[0],
+                SecondPerson = sortedPeople[1],
+                AgeDifference = sortedPeople[1].BirthDate - sortedPeople[0].BirthDate
+            };
+            
+            for (var i = 0; i < sortedPeople.Count - 1; i++)
+            {
+                var currentPerson = sortedPeople[i];
+                var nextPerson = sortedPeople[i + 1];
+                var currentAgeDifference = nextPerson.BirthDate - currentPerson.BirthDate;
+
+                if (currentAgeDifference < smallestAgeDifferenceSoFar.AgeDifference)
                 {
-                    var currentPair = new PairOfPeople();
-                    if(_allPeople[i].BirthDate < _allPeople[j].BirthDate)
+                    smallestAgeDifferenceSoFar = new PairOfPeople()
                     {
-                        currentPair.FirstPerson = _allPeople[i];
-                        currentPair.SecondPerson = _allPeople[j];
-                    }
-                    else
-                    {
-                        currentPair.FirstPerson = _allPeople[j];
-                        currentPair.SecondPerson = _allPeople[i];
-                    }
-                    currentPair.AgeDifference = currentPair.SecondPerson.BirthDate - currentPair.FirstPerson.BirthDate;
-                    pairOfPeoples.Add(currentPair);
+                        FirstPerson = currentPerson,
+                        SecondPerson = nextPerson,
+                        AgeDifference = currentAgeDifference
+                    };
                 }
             }
 
-            if(pairOfPeoples.Count < 1)
-            {
-                return new PairOfPeople();
-            }
-
-            PairOfPeople target = pairOfPeoples[0];
-            foreach(var current in pairOfPeoples)
-            {
-                switch(ageDifference)
-                {
-                    case AgeDifference.Smallest:
-                        if(current.AgeDifference < target.AgeDifference)
-                        {
-                            target = current;
-                        }
-                        break;
-
-                    case AgeDifference.Largest:
-                        if(current.AgeDifference > target.AgeDifference)
-                        {
-                            target = current;
-                        }
-                        break;
-                }
-            }
-
-            return target;
+            return smallestAgeDifferenceSoFar;
         }
     }
 }
