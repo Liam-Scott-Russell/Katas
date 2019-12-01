@@ -44,7 +44,7 @@ namespace Algorithm
                 heap.Add(person);
             }
 
-            return heap.GetSortedElements();
+            return heap.Sort();
         }
 
         private PairOfPeople GetLargestAgeDifference(List<Person> sortedPeople)

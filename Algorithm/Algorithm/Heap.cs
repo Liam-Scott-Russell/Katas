@@ -143,7 +143,7 @@ namespace Algorithm
             return parentDate <= leftChildDate && parentDate <= rightChildDate;
         }
 
-        public List<Person> GetSortedElements()
+        public List<Person> Sort()
         {
             var sortedPeople = new List<Person>();
             var totalNumberOfPeople = _items.Count - 1;
