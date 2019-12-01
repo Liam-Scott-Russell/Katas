@@ -96,21 +96,25 @@ namespace Algorithm
             return 0 < index && index <= _items.Count - 1;
         }
 
-        // TODO: Remove extra exit point here
         private int GetIndexOfSmallestChild(int parentIndex)
         {
             var leftChildIndex = 2 * parentIndex;
             var rightChildIndex = 2 * parentIndex + 1;
+            int output;
 
             if (!IsIndexWithinHeap(rightChildIndex))
             {
-                return IsIndexWithinHeap(leftChildIndex) ? leftChildIndex : -1;
+                output =  IsIndexWithinHeap(leftChildIndex) ? leftChildIndex : -1;
             }
-            
-            var leftChildDate = _items[leftChildIndex].BirthDate;
-            var rightChildDate = _items[rightChildIndex].BirthDate;
+            else
+            {
+                var leftChildDate = _items[leftChildIndex].BirthDate;
+                var rightChildDate = _items[rightChildIndex].BirthDate;
 
-            return leftChildDate < rightChildDate ? leftChildIndex : rightChildIndex;
+                output = leftChildDate < rightChildDate ? leftChildIndex : rightChildIndex;
+            }
+
+            return output;
         }
 
         
