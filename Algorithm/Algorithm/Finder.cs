@@ -16,21 +16,19 @@ namespace Algorithm
         {
             PairOfPeople output = new PairOfPeople();
 
-            if (_allPeople.Count <= 1)
+            if (_allPeople.Count > 1)
             {
-                return output;
-            }
-
-            var sortedPeople = SortPeopleByBirthDate();
+                var sortedPeople = SortPeopleByBirthDate();
             
-            switch (ageDifference)
-            {
-                case AgeDifference.Largest:
-                    output = GetLargestAgeDifference(sortedPeople);
-                    break;
-                case AgeDifference.Smallest:
-                    output = GetSmallestAgeDifference(sortedPeople);
-                    break;
+                switch (ageDifference)
+                {
+                    case AgeDifference.Largest:
+                        output = GetLargestAgeDifference(sortedPeople);
+                        break;
+                    case AgeDifference.Smallest:
+                        output = GetSmallestAgeDifference(sortedPeople);
+                        break;
+                }
             }
 
             return output;
