@@ -73,25 +73,21 @@ namespace Algorithm
             }   
         }
         
-        // TODO: remove multiple exit point here
         private void PercolateDown(int currentIndex)
         {
             while (true)
             {
-                if (IsElementInRightPlace(currentIndex))
-                {
-                    break;
-                }
-
                 var indexToSwapWith = GetIndexOfSmallestChild(currentIndex);
-                if (indexToSwapWith != -1)
+                
+                if (!IsElementInRightPlace(currentIndex) && indexToSwapWith != -1)
                 {
                     SwapPeopleByIndex(currentIndex, indexToSwapWith);
                     currentIndex = indexToSwapWith;
-                    continue;
                 }
-
-                break;
+                else
+                {
+                    break;
+                }
             }
         }
 
