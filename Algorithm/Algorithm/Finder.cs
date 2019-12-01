@@ -38,7 +38,13 @@ namespace Algorithm
 
         private List<Person> SortPeopleByBirthDate()
         {
-            return _allPeople.OrderBy(person => person.BirthDate).ToList();
+            var heap = new Heap(_allPeople.Count);
+            foreach (var person in _allPeople)
+            {
+                heap.Add(person);
+            }
+
+            return heap.GetSortedElements();
         }
 
         private PairOfPeople GetLargestAgeDifference(List<Person> sortedPeople)
