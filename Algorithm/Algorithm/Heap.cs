@@ -27,7 +27,7 @@ namespace Algorithm
 
                 var indicesAreValid = IsIndexWithinHeap(currentIndex) && IsIndexWithinHeap(parentIndex);
                 
-                if (!indicesAreValid || (_items[currentIndex].BirthDate >= _items[parentIndex].BirthDate))
+                if (!indicesAreValid || IsElementInRightPlace(parentIndex))
                 {
                     break;
                 }
@@ -73,6 +73,7 @@ namespace Algorithm
             }   
         }
         
+        // TODO: remove multiple exit point here
         private void PercolateDown(int currentIndex)
         {
             while (true)
@@ -99,6 +100,7 @@ namespace Algorithm
             return 0 < index && index <= _items.Count - 1;
         }
 
+        // TODO: Remove extra exit point here
         private int GetIndexOfSmallestChild(int parentIndex)
         {
             var leftChildIndex = 2 * parentIndex;
@@ -115,6 +117,8 @@ namespace Algorithm
             return leftChildDate < rightChildDate ? leftChildIndex : rightChildIndex;
         }
 
+        
+        // TODO: Remove multiple exit points here
         private bool IsElementInRightPlace(int parentIndex)
         {
             var leftChildIndex = 2 * parentIndex;
