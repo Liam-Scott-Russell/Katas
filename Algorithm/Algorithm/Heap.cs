@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace Algorithm
@@ -26,21 +25,15 @@ namespace Algorithm
             {
                 var parentIndex = currentIndex / 2;
 
-                // First and only item doesn't need to percolate
-                if (currentIndex == 1)
-                {
-                    break;
-                }
+                var indicesAreValid = IsIndexWithinHeap(currentIndex) && IsIndexWithinHeap(parentIndex);
                 
-                if (_items[currentIndex].BirthDate < _items[parentIndex].BirthDate)
-                {
-                    SwapPeopleByIndex(parentIndex, currentIndex);
-                    currentIndex = parentIndex;
-                }
-                else
+                if (!indicesAreValid || (_items[currentIndex].BirthDate >= _items[parentIndex].BirthDate))
                 {
                     break;
                 }
+
+                SwapPeopleByIndex(parentIndex, currentIndex);
+                currentIndex = parentIndex;
             }
         }
 
@@ -103,7 +96,7 @@ namespace Algorithm
 
         private bool IsIndexWithinHeap(int index)
         {
-            return index <= _items.Count - 1;
+            return 0 < index && index <= _items.Count - 1;
         }
 
         private int GetIndexOfSmallestChild(int parentIndex)
