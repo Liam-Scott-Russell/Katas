@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Finder.cs" />
+    <Compile Include="Heap.cs" />
     <Compile Include="PairOfPeople.cs" />
     <Compile Include="AgeDifference.cs" />
     <Compile Include="Person.cs" />
