@@ -116,28 +116,51 @@ namespace Algorithm
 
             return output;
         }
-
         
-        // TODO: Remove multiple exit points here
         private bool IsElementInRightPlace(int parentIndex)
+        {
+            var rightChildIndex = 2 * parentIndex + 1;
+            bool output;
+
+            if (IsIndexWithinHeap(rightChildIndex))
+            {
+                output = IsParentBiggerThanBothChildren(parentIndex);
+            }
+            else
+            {
+                output = IsParentBiggerThanLeftChild(parentIndex);
+            }
+            
+            return output;
+        }
+
+        private bool IsParentBiggerThanBothChildren(int parentIndex)
         {
             var leftChildIndex = 2 * parentIndex;
             var rightChildIndex = 2 * parentIndex + 1;
             
-            if (!IsIndexWithinHeap(rightChildIndex))
-            {
-                if (IsIndexWithinHeap(leftChildIndex))
-                {
-                    return _items[parentIndex].BirthDate <= _items[leftChildIndex].BirthDate;
-                }
-                return true;
-            }
-
-            var parentDate = _items[parentIndex].BirthDate;
             var leftChildDate = _items[leftChildIndex].BirthDate;
             var rightChildDate = _items[rightChildIndex].BirthDate;
+            var parentDate = _items[parentIndex].BirthDate;
 
             return parentDate <= leftChildDate && parentDate <= rightChildDate;
+        }
+
+        private bool IsParentBiggerThanLeftChild(int parentIndex)
+        {
+            var leftChildIndex = 2 * parentIndex;
+            bool output;          
+            
+            if (IsIndexWithinHeap(leftChildIndex))
+            {
+                output = _items[parentIndex].BirthDate <= _items[leftChildIndex].BirthDate;
+            }
+            else
+            {
+                output = true;
+            }
+            
+            return output;
         }
 
         public List<Person> Sort()
