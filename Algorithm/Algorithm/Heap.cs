@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Algorithm
 {
@@ -44,10 +45,10 @@ namespace Algorithm
             _items[indexTwo] = temp;
         }
 
-        public Person RemoveMinimum()
+        private Person RemoveMinimum()
         {
             var youngestPerson = _items[1];
-            var lastPersonInHeap = _items[_items.Count - 1];
+            var lastPersonInHeap = _items.Last();
             
             MovePersonToTopOfHeap(lastPersonInHeap);
             
