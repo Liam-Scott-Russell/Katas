@@ -20,15 +20,13 @@ namespace Algorithm
             {
                 var sortedPeople = SortPeopleByBirthDate();
             
-                switch (ageDifference)
+                var possibleOutcomes = new PairOfPeople[2]
                 {
-                    case AgeDifference.Largest:
-                        output = GetLargestAgeDifference(sortedPeople);
-                        break;
-                    case AgeDifference.Smallest:
-                        output = GetSmallestAgeDifference(sortedPeople);
-                        break;
-                }
+                    GetSmallestAgeDifference(sortedPeople),
+                    GetLargestAgeDifference(sortedPeople)
+                };
+
+                return possibleOutcomes[(int) ageDifference];
             }
 
             return output;
