@@ -36,3 +36,4 @@ Desktop.ini
 *.config
 Algorithm.Tests/Properties/AssemblyInfo.cs
 Algorithm/Algorithm/Properties/AssemblyInfo.cs
+.idea/.idea.Algorithm/.idea/vcs.xml

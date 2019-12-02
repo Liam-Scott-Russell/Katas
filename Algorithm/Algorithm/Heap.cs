@@ -1,5 +1,5 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Algorithm
 {
@@ -26,21 +26,15 @@ namespace Algorithm
             {
                 var parentIndex = currentIndex / 2;
 
-                // First and only item doesn't need to percolate
-                if (currentIndex == 1)
-                {
-                    break;
-                }
+                var indicesAreValid = IsIndexWithinHeap(currentIndex) && IsIndexWithinHeap(parentIndex);
                 
-                if (_items[currentIndex].BirthDate < _items[parentIndex].BirthDate)
-                {
-                    SwapPeopleByIndex(parentIndex, currentIndex);
-                    currentIndex = parentIndex;
-                }
-                else
+                if (!indicesAreValid || IsElementInRightPlace(parentIndex))
                 {
                     break;
                 }
+
+                SwapPeopleByIndex(parentIndex, currentIndex);
+                currentIndex = parentIndex;
             }
         }
 
@@ -51,10 +45,10 @@ namespace Algorithm
             _items[indexTwo] = temp;
         }
 
-        public Person RemoveMinimum()
+        private Person RemoveMinimum()
         {
             var youngestPerson = _items[1];
-            var lastPersonInHeap = _items[_items.Count - 1];
+            var lastPersonInHeap = _items.Last();
             
             MovePersonToTopOfHeap(lastPersonInHeap);
             
@@ -84,63 +78,80 @@ namespace Algorithm
         {
             while (true)
             {
-                if (IsElementInRightPlace(currentIndex))
-                {
-                    break;
-                }
-
                 var indexToSwapWith = GetIndexOfSmallestChild(currentIndex);
-                if (indexToSwapWith != -1)
+                
+                if (!IsElementInRightPlace(currentIndex) && indexToSwapWith != -1)
                 {
                     SwapPeopleByIndex(currentIndex, indexToSwapWith);
                     currentIndex = indexToSwapWith;
-                    continue;
                 }
-
-                break;
+                else
+                {
+                    break;
+                }
             }
         }
 
         private bool IsIndexWithinHeap(int index)
         {
-            return index <= _items.Count - 1;
+            return index > 0 && index <= _items.Count - 1;
         }
 
         private int GetIndexOfSmallestChild(int parentIndex)
         {
             var leftChildIndex = 2 * parentIndex;
             var rightChildIndex = 2 * parentIndex + 1;
+            int output;
 
             if (!IsIndexWithinHeap(rightChildIndex))
             {
-                return IsIndexWithinHeap(leftChildIndex) ? leftChildIndex : -1;
+                output =  IsIndexWithinHeap(leftChildIndex) ? leftChildIndex : -1;
             }
-            
-            var leftChildDate = _items[leftChildIndex].BirthDate;
-            var rightChildDate = _items[rightChildIndex].BirthDate;
+            else
+            {
+                var leftChildDate = _items[leftChildIndex].BirthDate;
+                var rightChildDate = _items[rightChildIndex].BirthDate;
 
-            return leftChildDate < rightChildDate ? leftChildIndex : rightChildIndex;
+                output = leftChildDate < rightChildDate ? leftChildIndex : rightChildIndex;
+            }
+
+            return output;
+        }
+        
+        private bool IsElementInRightPlace(int parentIndex)
+        {
+            var rightChildIndex = 2 * parentIndex + 1;
+
+            return IsIndexWithinHeap(rightChildIndex) ? IsParentYoungerThanBothChildren(parentIndex) : IsParentYoungerThanLeftChild(parentIndex);
         }
 
-        private bool IsElementInRightPlace(int parentIndex)
+        private bool IsParentYoungerThanBothChildren(int parentIndex)
         {
             var leftChildIndex = 2 * parentIndex;
             var rightChildIndex = 2 * parentIndex + 1;
             
-            if (!IsIndexWithinHeap(rightChildIndex))
-            {
-                if (IsIndexWithinHeap(leftChildIndex))
-                {
-                    return _items[parentIndex].BirthDate <= _items[leftChildIndex].BirthDate;
-                }
-                return true;
-            }
-
-            var parentDate = _items[parentIndex].BirthDate;
             var leftChildDate = _items[leftChildIndex].BirthDate;
             var rightChildDate = _items[rightChildIndex].BirthDate;
+            var parentDate = _items[parentIndex].BirthDate;
 
             return parentDate <= leftChildDate && parentDate <= rightChildDate;
+        }
+
+        private bool IsParentYoungerThanLeftChild(int parentIndex)
+        {
+            var leftChildIndex = 2 * parentIndex;
+            bool output;          
+            
+            if (IsIndexWithinHeap(leftChildIndex))
+            {
+                output = _items[parentIndex].BirthDate <= _items[leftChildIndex].BirthDate;
+            }
+            else
+            {
+                output = true;
+            }
+            
+            return output;
         }
 
         public List<Person> Sort()
