@@ -20,13 +20,13 @@ namespace Algorithm
             {
                 var sortedPeople = SortPeopleByBirthDate();
             
-                var possibleOutcomes = new PairOfPeople[2]
+                var possibleOutput = new PairOfPeople[2]
                 {
                     GetSmallestAgeDifference(sortedPeople),
                     GetLargestAgeDifference(sortedPeople)
                 };
 
-                return possibleOutcomes[(int) ageDifference];
+                output =  possibleOutput[(int) ageDifference];
             }
 
             return output;

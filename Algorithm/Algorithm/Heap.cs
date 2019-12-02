@@ -94,7 +94,7 @@ namespace Algorithm
 
         private bool IsIndexWithinHeap(int index)
         {
-            return 0 < index && index <= _items.Count - 1;
+            return index > 0 && index <= _items.Count - 1;
         }
 
         private int GetIndexOfSmallestChild(int parentIndex)
@@ -121,18 +121,8 @@ namespace Algorithm
         private bool IsElementInRightPlace(int parentIndex)
         {
             var rightChildIndex = 2 * parentIndex + 1;
-            bool output;
 
-            if (IsIndexWithinHeap(rightChildIndex))
-            {
-                output = IsParentYoungerThanBothChildren(parentIndex);
-            }
-            else
-            {
-                output = IsParentYoungerThanLeftChild(parentIndex);
-            }
-            
-            return output;
+            return IsIndexWithinHeap(rightChildIndex) ? IsParentYoungerThanBothChildren(parentIndex) : IsParentYoungerThanLeftChild(parentIndex);
         }
 
         private bool IsParentYoungerThanBothChildren(int parentIndex)
