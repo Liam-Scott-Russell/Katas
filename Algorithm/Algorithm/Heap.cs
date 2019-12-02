@@ -124,17 +124,17 @@ namespace Algorithm
 
             if (IsIndexWithinHeap(rightChildIndex))
             {
-                output = IsParentBiggerThanBothChildren(parentIndex);
+                output = IsParentYoungerThanBothChildren(parentIndex);
             }
             else
             {
-                output = IsParentBiggerThanLeftChild(parentIndex);
+                output = IsParentYoungerThanLeftChild(parentIndex);
             }
             
             return output;
         }
 
-        private bool IsParentBiggerThanBothChildren(int parentIndex)
+        private bool IsParentYoungerThanBothChildren(int parentIndex)
         {
             var leftChildIndex = 2 * parentIndex;
             var rightChildIndex = 2 * parentIndex + 1;
@@ -146,7 +146,7 @@ namespace Algorithm
             return parentDate <= leftChildDate && parentDate <= rightChildDate;
         }
 
-        private bool IsParentBiggerThanLeftChild(int parentIndex)
+        private bool IsParentYoungerThanLeftChild(int parentIndex)
         {
             var leftChildIndex = 2 * parentIndex;
             bool output;          
