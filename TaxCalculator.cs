@@ -45,7 +45,9 @@ namespace Payslip_Round_2
 
         private decimal CustomRound(decimal number)
         {
-            return number;
+            var decimalComponent = number - Math.Floor(number);
+
+            return decimalComponent < (decimal) 0.5 ? Math.Floor(number) : Math.Ceiling(number);
         }
     }
 }
