@@ -7,7 +7,7 @@ namespace Payslip_Round_2
 
         public void Begin()
         {
-            Payslip payslip;
+            Payslip payslip = new Payslip();
             
             var userChoice = GetChoiceOfManualOrCsv();
             switch (userChoice)
@@ -19,6 +19,8 @@ namespace Payslip_Round_2
                     payslip = CreatePayslipFromCsv();
                     break;
             }
+            
+            Display.DisplayPayslip(payslip);
         }
 
         private string GetChoiceOfManualOrCsv()

@@ -8,6 +8,7 @@ namespace Payslip_Round_2
             {
                 Employee = employee,
                 PayPeriod = payPeriod,
+                TaxInformation = new TaxDetails()
             };
         }
         
