@@ -44,6 +44,7 @@ namespace Payslip_Round_2
         private Payslip CreatePayslipManually()
         {
             var employee = CreateEmployeeManually();
+            employee.Country = Config.Australia;
             var payPeriod = GetPayPeriodManually();
             return PayslipFactory.MakePayslip(employee, payPeriod);
         }
