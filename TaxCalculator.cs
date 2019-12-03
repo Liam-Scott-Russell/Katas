@@ -12,6 +12,23 @@ namespace Payslip_Round_2
             _employee = employee;
         }
 
+        private TaxBracket DetermineTaxBracket()
+        {
+            var country = _employee.Country;
+            var salary = _employee.Salary;
+            var correctTaxBracket = new TaxBracket();
+
+            foreach (var bracket in country.TaxBrackets)
+            {
+                if (salary > bracket.LowerBound)
+                {
+                    correctTaxBracket = bracket;
+                }
+            }
+
+            return correctTaxBracket;
+        }
+        
         public decimal GetGrossIncome()
         {
             var monthlySalary = _employee.Salary / 12;
@@ -20,7 +37,7 @@ namespace Payslip_Round_2
 
         public decimal GetIncomeTax()
         {
-            var taxBracket = _employee.Country.DetermineTaxBracket(_employee.Salary);
+            var taxBracket = DetermineTaxBracket();
             
             var constantTax = taxBracket.ConstantTax;
             var taxWithinBracket = _employee.Salary - taxBracket.LowerBound;
