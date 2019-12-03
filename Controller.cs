@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Payslip_Round_2
 {
@@ -7,20 +8,25 @@ namespace Payslip_Round_2
 
         public void Begin()
         {
-            Payslip payslip = new Payslip();
+            var payslips = new List<Payslip>();
             
             var userChoice = GetChoiceOfManualOrCsv();
             switch (userChoice)
             {
                 case "manual":
-                    payslip = CreatePayslipManually();
+                    var payslip = CreatePayslipManually();
+                    payslips.Add(payslip);
                     break;
                 case "csv":
-                    payslip = CreatePayslipFromCsv();
+                    payslips.AddRange(CreatePayslipFromCsv());
                     break;
             }
-            
-            Display.DisplayPayslip(payslip);
+
+            foreach (var payslip in payslips)
+            {
+                Display.DisplayPayslip(payslip);
+                Display.AlertUser(Environment.NewLine);
+            }
         }
 
         private string GetChoiceOfManualOrCsv()
@@ -29,7 +35,7 @@ namespace Payslip_Round_2
             return Display.GetUserInput();
         }
 
-        private Payslip CreatePayslipFromCsv()
+        private List<Payslip> CreatePayslipFromCsv()
         {
             var filename = GetCsvFilename();
             return PayslipFactory.MakePayslip(filename);
