@@ -45,5 +45,11 @@ namespace Payslip_Round_2
                 }
             }
         };
+
+        public static string CsvDelimiter { get; set; } = ",";
+
+        public static string DateInputFormat { get; } = "dd MMMM";
+        public static string DateOutputFormat { get; } = "dd MMMM";
+
     }
 }
