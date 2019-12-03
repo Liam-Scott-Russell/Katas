@@ -7,23 +7,18 @@ namespace Payslip_Round_2
 
         public void Begin()
         {
-            var payslip = new Payslip();
+            Payslip payslip;
             
             var userChoice = GetChoiceOfManualOrCsv();
             switch (userChoice)
             {
                 case "manual":
-                    var employee = CreateEmployeeFromManualInput();
-                    payslip = PayslipFactory.MakePayslip(employee);
+                    payslip = CreatePayslipManually();
                     break;
                 case "csv":
-                    var filename = GetCsvFilename();
-                    payslip = PayslipFactory.MakePayslip(filename);
+                    payslip = CreatePayslipFromCsv();
                     break;
             }
-            
-            var startDate = GetPaymentStartDate();
-            var endDate = GetPaymentEndDate();
         }
 
         private string GetChoiceOfManualOrCsv()
@@ -32,13 +27,26 @@ namespace Payslip_Round_2
             return Display.GetUserInput();
         }
 
+        private Payslip CreatePayslipFromCsv()
+        {
+            var filename = GetCsvFilename();
+            return PayslipFactory.MakePayslip(filename);
+        }
+
         private string GetCsvFilename()
         {
             Display.AlertUser("Please enter a filename for the CSV file");
             return Display.GetUserInput();
         }
 
-        private Employee CreateEmployeeFromManualInput()
+        private Payslip CreatePayslipManually()
+        {
+            var employee = CreateEmployeeManually();
+            var payPeriod = GetPayPeriodManually();
+            return PayslipFactory.MakePayslip(employee, payPeriod);
+        }
+
+        private Employee CreateEmployeeManually()
         {
             var employee = new Employee();
             
@@ -57,13 +65,23 @@ namespace Payslip_Round_2
             return employee;
         }
 
-        private DateTime GetPaymentStartDate()
+        private PayPeriod GetPayPeriodManually()
+        {
+            var payPeriod = new PayPeriod()
+            {
+                Start = GetUserInputPaymentStart(),
+                End = GetUserInputPaymentEnd()
+            };
+            return payPeriod;
+        }
+
+        private DateTime GetUserInputPaymentStart()
         {
             Display.AlertUser("Please enter your payment start date:");
             return Convert.ToDateTime(Display.GetUserInput());
         }
 
-        private DateTime GetPaymentEndDate()
+        private DateTime GetUserInputPaymentEnd()
         {
             Display.AlertUser("Please enter your payment end date:");
             return Convert.ToDateTime(Display.GetUserInput());
