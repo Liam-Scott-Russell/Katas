@@ -5,7 +5,7 @@ namespace Payslip_Round_2
         string CountryName { get; set; }
         TaxBracket[] TaxBrackets { get; set; }
         string CurrencySymbol { get; set; }
-        TaxBracket DetermineTaxBracket();
+        TaxBracket DetermineTaxBracket(decimal salary);
     }
     public class Country : ICountry
     {
@@ -13,7 +13,7 @@ namespace Payslip_Round_2
         public TaxBracket[] TaxBrackets { get; set; }
         public string CurrencySymbol { get; set; }
 
-        public TaxBracket DetermineTaxBracket()
+        public TaxBracket DetermineTaxBracket(decimal salary)
         {
             return new TaxBracket();
         }

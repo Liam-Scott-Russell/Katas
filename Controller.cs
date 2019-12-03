@@ -59,10 +59,10 @@ namespace Payslip_Round_2
             employee.Lastname = Display.GetUserInput();
             
             Display.AlertUser("Please enter your annual salary:");
-            employee.Salary = Convert.ToDouble(Display.GetUserInput());
+            employee.Salary = Convert.ToDecimal(Display.GetUserInput());
             
             Display.AlertUser("Please enter your super rate:");
-            employee.SuperPercent = Convert.ToDouble(Display.GetUserInput());
+            employee.SuperPercent = Convert.ToDecimal(Display.GetUserInput());
 
             return employee;
         }
