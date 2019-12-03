@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Payslip_Round_2
 {
     public class Config
@@ -6,7 +8,7 @@ namespace Payslip_Round_2
         {
             CountryName = "Australia",
             CurrencySymbol = "$",
-            TaxBrackets = new TaxBracket[5]
+            TaxBrackets = new List<TaxBracket>()
             {
                 new TaxBracket()
                 {
