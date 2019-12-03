@@ -7,10 +7,37 @@ namespace Payslip_Round_2
 
         public void Begin()
         {
-            var employee = CreateEmployeeFromManualInput();
+            var payslip = new Payslip();
+            
+            var userChoice = GetChoiceOfManualOrCsv();
+            switch (userChoice)
+            {
+                case "manual":
+                    var employee = CreateEmployeeFromManualInput();
+                    payslip = PayslipFactory.MakePayslip(employee);
+                    break;
+                case "csv":
+                    var filename = GetCsvFilename();
+                    payslip = PayslipFactory.MakePayslip(filename);
+                    break;
+            }
+            
             var startDate = GetPaymentStartDate();
             var endDate = GetPaymentEndDate();
         }
+
+        private string GetChoiceOfManualOrCsv()
+        {
+            Display.AlertUser("Type 'csv' or 'manual' to specify input type");
+            return Display.GetUserInput();
+        }
+
+        private string GetCsvFilename()
+        {
+            Display.AlertUser("Please enter a filename for the CSV file");
+            return Display.GetUserInput();
+        }
+
         private Employee CreateEmployeeFromManualInput()
         {
             var employee = new Employee();
