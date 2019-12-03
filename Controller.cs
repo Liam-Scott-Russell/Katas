@@ -8,25 +8,26 @@ namespace Payslip_Round_2
 
         public void Begin()
         {
+            var payslips = CreatePayslips();
+            DisplayAllPayslips(payslips);
+        }
+
+        private List<Payslip> CreatePayslips()
+        {
             var payslips = new List<Payslip>();
             
             var userChoice = GetChoiceOfManualOrCsv();
             switch (userChoice)
             {
                 case "manual":
-                    var payslip = CreatePayslipManually();
-                    payslips.Add(payslip);
+                    payslips.Add(CreatePayslipManually());
                     break;
                 case "csv":
                     payslips.AddRange(CreatePayslipFromCsv());
                     break;
             }
 
-            foreach (var payslip in payslips)
-            {
-                Display.DisplayPayslip(payslip);
-                Display.AlertUser(Environment.NewLine);
-            }
+            return payslips;
         }
 
         private string GetChoiceOfManualOrCsv()
@@ -94,6 +95,15 @@ namespace Payslip_Round_2
         {
             Display.AlertUser("Please enter your payment end date:");
             return Convert.ToDateTime(Display.GetUserInput());
+        }
+
+        private void DisplayAllPayslips(List<Payslip> payslips)
+        {
+            foreach (var payslip in payslips)
+            {
+                Display.DisplayPayslip(payslip);
+                Display.AlertUser(Environment.NewLine);
+            }
         }
     }
 }
