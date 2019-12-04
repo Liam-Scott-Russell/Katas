@@ -42,7 +42,7 @@ namespace Payslip_Round_2
                     GrossIncome = calculator.GetGrossIncome(),
                     IncomeTax = calculator.GetIncomeTax(),
                     NetIncome = calculator.GetNetIncome(),
-                    Super = calculator.GetSuper()
+                    SuperAmount = calculator.GetSuperAmount()
                 }
             };
         }

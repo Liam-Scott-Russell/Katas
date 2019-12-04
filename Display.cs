@@ -39,7 +39,7 @@ namespace Payslip_Round_2
             AlertUser($"Gross Income: {taxInfo.GrossIncome}");
             AlertUser($"Income Tax: {taxInfo.IncomeTax}");
             AlertUser($"Net Income: {taxInfo.NetIncome}");
-            AlertUser($"Super: {taxInfo.Super}");
+            AlertUser($"Super: {taxInfo.SuperAmount}");
         }
     }
 }

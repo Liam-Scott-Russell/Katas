@@ -53,7 +53,7 @@ namespace Payslip_Round_2
             return CustomRound(netIncome);
         }
 
-        public decimal GetSuper()
+        public decimal GetSuperAmount()
         {
             var superPercentAsDecimal = _employee.SuperPercent / 100;
             var superAmount = GetGrossIncome() * superPercentAsDecimal;
