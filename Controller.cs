@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Payslip_Round_2
 {
@@ -9,7 +10,7 @@ namespace Payslip_Round_2
         public void Begin()
         {
             var payslips = CreatePayslips();
-            DisplayAllPayslips(payslips);
+            DisplayPayslips(payslips);
         }
 
         private List<Payslip> CreatePayslips()
@@ -97,13 +98,44 @@ namespace Payslip_Round_2
             return Convert.ToDateTime(Display.GetUserInput());
         }
 
-        private void DisplayAllPayslips(List<Payslip> payslips)
+        private void DisplayPayslips(List<Payslip> payslips)
+        {
+            var userChoice = GetUserOutputFormatChoice();
+            switch (userChoice)
+            {
+                case "console":
+                    ConsoleDisplayAllPayslips(payslips);
+                    break;
+                case "csv":
+                    var outputFileName = GetCsvFilename();
+                    WritePayslipsToCsv(payslips, outputFileName);
+                    break;
+            }
+        }
+        private void ConsoleDisplayAllPayslips(List<Payslip> payslips)
         {
             foreach (var payslip in payslips)
             {
                 Display.DisplayPayslip(payslip);
                 Display.AlertUser(Environment.NewLine);
             }
+        }
+
+        private string GetUserOutputFormatChoice()
+        {
+            Display.AlertUser("Type 'console' or 'csv' to decide how to output the payslip(s)");
+            return Display.GetUserInput();
+        }
+
+        private void WritePayslipsToCsv(List<Payslip> payslips, string filename)
+        {
+            var lines = new List<string>()
+            {
+                "name,pay period,gross income,income tax,net income,super"
+            };
+            
+            lines.AddRange(payslips.Select(payslip => CsvFormatter.CreateCsvLineFromPayslip(payslip)));
+            CsvReaderWriter.WriteLines(filename, lines);
         }
     }
 }
