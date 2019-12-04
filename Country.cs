@@ -1,21 +1,17 @@
+using System.Collections.Generic;
+
 namespace Payslip_Round_2
 {
     interface ICountry
     {
         string CountryName { get; set; }
-        TaxBracket[] TaxBrackets { get; set; }
+        List<TaxBracket> TaxBrackets { get; set; }
         string CurrencySymbol { get; set; }
-        TaxBracket DetermineTaxBracket();
     }
     public class Country : ICountry
     {
         public string CountryName { get; set; }
-        public TaxBracket[] TaxBrackets { get; set; }
+        public List<TaxBracket> TaxBrackets { get; set; }
         public string CurrencySymbol { get; set; }
-
-        public TaxBracket DetermineTaxBracket()
-        {
-            return new TaxBracket();
-        }
     }
 }

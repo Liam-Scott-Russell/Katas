@@ -2,14 +2,16 @@ namespace Payslip_Round_2
 {
     interface ITaxDetails
     {
-        double GrossIncome { get; set; }
-        double IncomeTax { get; set; }
-        double NetIncome { get; set; }
+        decimal GrossIncome { get; set; }
+        decimal IncomeTax { get; set; }
+        decimal NetIncome { get; set; }
+        decimal SuperAmount { get; set; }
     }
     public class TaxDetails : ITaxDetails
     {
-        public double GrossIncome { get; set; }
-        public double IncomeTax { get; set; }
-        public double NetIncome { get; set; }
+        public decimal GrossIncome { get; set; }
+        public decimal IncomeTax { get; set; }
+        public decimal NetIncome { get; set; }
+        public decimal SuperAmount { get; set; }
     }
 }
