@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.IO;
-using Microsoft.VisualBasic.FileIO;
 
 namespace Payslip_Round_2
 {
@@ -10,6 +9,11 @@ namespace Payslip_Round_2
         {
             string[] lines = File.ReadAllLines(filename);
             return lines;
+        }
+        
+        public static void WriteLines(string filename, List<string> lines)
+        {
+            File.WriteAllLines(filename, lines);
         }
     }
 }
