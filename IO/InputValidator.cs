@@ -1,7 +1,7 @@
 using System;
 using System.Text.RegularExpressions;
 
-namespace Payslip_Round_2
+namespace Payslip_Round_2.IO
 {
     public class InputValidator
     {

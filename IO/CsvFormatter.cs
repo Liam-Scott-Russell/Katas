@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Payslip_Round_2
+namespace Payslip_Round_2.IO
 {
     public class CsvFormatter
     {
