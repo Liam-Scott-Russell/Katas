@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Payslip_Round_2
 {
@@ -48,6 +49,34 @@ namespace Payslip_Round_2
         {
             var trimmedDate = inputDate.Trim();
             return DateTime.ParseExact(trimmedDate, Config.DateInputFormat, null);
+        }
+
+        public static string CreateCsvLineFromPayslip(Payslip payslip)
+        {
+            var fields = new List<string>
+            {
+                FormatName(payslip.Employee),
+                FormatPayPeriod(payslip.PayPeriod),
+                payslip.TaxInformation.GrossIncome.ToString(),
+                payslip.TaxInformation.IncomeTax.ToString(),
+                payslip.TaxInformation.NetIncome.ToString(),
+                payslip.TaxInformation.SuperAmount.ToString()
+            };
+
+            var combinedLine = string.Join(Config.CsvDelimiter, fields);
+            return combinedLine;
+        }
+
+        private static string FormatName(Employee employee)
+        {
+            return $"{employee.Firstname} {employee.Lastname}";
+        }
+
+        private static string FormatPayPeriod(PayPeriod payPeriod)
+        {
+            var formattedStartDate = payPeriod.Start.ToString("MMMM dd");
+            var formattedEndDate = payPeriod.End.ToString("MMMM dd");
+            return $"{formattedStartDate} - {formattedEndDate}";
         }
     }
 }
