@@ -1,3 +1,4 @@
+using System;
 using System.Text.RegularExpressions;
 
 namespace Payslip_Round_2
@@ -21,6 +22,21 @@ namespace Payslip_Round_2
         {
             var checker = new Regex(regex);
             return checker.IsMatch(input);
+        }
+
+        public static DateTime GetDate()
+        {
+            while (true)
+            {
+                var userInput = Display.GetUserInput();
+
+                try
+                {
+                    var parsedDate = DateTime.ParseExact(userInput, Config.DateInputFormat, null);
+                    return parsedDate;
+                }
+                catch (FormatException){}
+            }
         }
     }
 }

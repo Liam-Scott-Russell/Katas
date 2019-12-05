@@ -89,13 +89,13 @@ namespace Payslip_Round_2
         private DateTime GetUserInputPaymentStart()
         {
             Display.AlertUser("Please enter your payment start date:");
-            return Convert.ToDateTime(Display.GetUserInput());
+            return InputValidator.GetDate();
         }
 
         private DateTime GetUserInputPaymentEnd()
         {
             Display.AlertUser("Please enter your payment end date:");
-            return Convert.ToDateTime(Display.GetUserInput());
+            return InputValidator.GetDate();
         }
 
         private void DisplayPayslips(List<Payslip> payslips)
