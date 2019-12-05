@@ -46,7 +46,7 @@ namespace Payslip_Round_2
         private string GetCsvFilename()
         {
             Display.AlertUser("Please enter a filename for the CSV file");
-            return Display.GetUserInput();
+            return InputValidator.GetInput(Config.Regex["csvFilePath"]); 
         }
 
         private Payslip CreatePayslipManually()
