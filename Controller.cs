@@ -52,7 +52,6 @@ namespace Payslip_Round_2
         private Payslip CreatePayslipManually()
         {
             var employee = CreateEmployeeManually();
-            employee.Country = Config.Australia;
             var payPeriod = GetPayPeriodManually();
             return PayslipFactory.MakePayslip(employee, payPeriod);
         }
@@ -62,18 +61,25 @@ namespace Payslip_Round_2
             var employee = new Employee();
             
             Display.AlertUser("Please input your name:");
-            employee.Firstname = InputValidator.GetInput(Config.Regex["name"]);
+            var firstname = InputValidator.GetInput(Config.Regex["name"]);
             
             Display.AlertUser("Please input your surname:");
-            employee.Lastname = InputValidator.GetInput(Config.Regex["name"]);
+            var lastname = InputValidator.GetInput(Config.Regex["name"]);
             
             Display.AlertUser("Please enter your annual salary:");
-            employee.Salary = Convert.ToDecimal(InputValidator.GetInput(Config.Regex["salary"]));
+            var salary = Convert.ToDecimal(InputValidator.GetInput(Config.Regex["salary"]));
             
             Display.AlertUser("Please enter your super rate:");
-            employee.SuperPercent = Convert.ToDecimal(InputValidator.GetInput(Config.Regex["super"]));
+            var superPercent = Convert.ToDecimal(InputValidator.GetInput(Config.Regex["super"]));
 
-            return employee;
+            return new Employee()
+            {
+                Firstname = firstname,
+                Lastname = lastname,
+                Salary = salary,
+                Country = Config.Australia,
+                SuperPercent = superPercent
+            };
         }
 
         private PayPeriod GetPayPeriodManually()
