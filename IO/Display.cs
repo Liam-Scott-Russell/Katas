@@ -29,9 +29,8 @@ namespace Payslip_Round_2
 
         private static void DisplayPayPeriod(PayPeriod payPeriod)
         {
-            var formattedStartDate = payPeriod.Start.ToString("MMMM dd");
-            var formattedEndDate = payPeriod.End.ToString("MMMM dd");
-            AlertUser($"Pay Period: {formattedStartDate} - {formattedEndDate}");
+            var formattedDate = Formatter.ConcatenatePayPeriod(payPeriod);
+            AlertUser($"Pay Period: {formattedDate}");
         }
 
         private static void DisplayTaxInformation(TaxDetails taxInfo)
