@@ -34,7 +34,7 @@ namespace Payslip_Round_2
         private string GetChoiceOfManualOrCsv()
         {
             Display.AlertUser("Type 'csv' or 'manual' to specify input type");
-            return Display.GetUserInput();
+            return InputValidator.GetInput(@"^csv|manual$");
         }
 
         private List<Payslip> CreatePayslipFromCsv()
@@ -62,16 +62,16 @@ namespace Payslip_Round_2
             var employee = new Employee();
             
             Display.AlertUser("Please input your name:");
-            employee.Firstname = Display.GetUserInput();
+            employee.Firstname = InputValidator.GetInput(Config.Regex["name"]);
             
             Display.AlertUser("Please input your surname:");
-            employee.Lastname = Display.GetUserInput();
+            employee.Lastname = InputValidator.GetInput(Config.Regex["name"]);
             
             Display.AlertUser("Please enter your annual salary:");
-            employee.Salary = Convert.ToDecimal(Display.GetUserInput());
+            employee.Salary = Convert.ToDecimal(InputValidator.GetInput(Config.Regex["salary"]));
             
             Display.AlertUser("Please enter your super rate:");
-            employee.SuperPercent = Convert.ToDecimal(Display.GetUserInput());
+            employee.SuperPercent = Convert.ToDecimal(InputValidator.GetInput(Config.Regex["super"]));
 
             return employee;
         }
@@ -124,7 +124,7 @@ namespace Payslip_Round_2
         private string GetUserOutputFormatChoice()
         {
             Display.AlertUser("Type 'console' or 'csv' to decide how to output the payslip(s)");
-            return Display.GetUserInput();
+            return InputValidator.GetInput(@"^csv|console");
         }
 
         private void WritePayslipsToCsv(List<Payslip> payslips, string filename)

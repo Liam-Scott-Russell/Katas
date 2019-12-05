@@ -52,6 +52,13 @@ namespace Payslip_Round_2
 
         public static string DateInputFormat { get; } = "dd MMMM";
         public static string DateOutputFormat { get; } = "dd MMMM";
+        
+        public static Dictionary<string, string> Regex { get; }= new Dictionary<string, string>()
+        {
+            {"name", @"^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"},
+            {"salary", @"^\d+$"},
+            {"super", @"^\d{1,3}(\.\d+)?$"}
+        };
 
     }
 }
