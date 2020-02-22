@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Payslip_Round_2
+﻿namespace Payslip_Round_2
 {
     class Program
     {

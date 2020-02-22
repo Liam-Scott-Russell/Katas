@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Payslip_Round_2
+namespace Payslip_Round_2.IO
 {
     public class CsvFormatter
     {
@@ -38,25 +38,19 @@ namespace Payslip_Round_2
             
             var payPeriod = new PayPeriod()
             {
-                Start = FormatDate(separatedPayPeriod[0]),
-                End = FormatDate(separatedPayPeriod[1])
+                Start = Formatter.ParseDateString(separatedPayPeriod[0]),
+                End = Formatter.ParseDateString(separatedPayPeriod[1])
             };
 
             return payPeriod;
-        }
-
-        private static DateTime FormatDate(string inputDate)
-        {
-            var trimmedDate = inputDate.Trim();
-            return DateTime.ParseExact(trimmedDate, Config.DateInputFormat, null);
         }
 
         public static string CreateCsvLineFromPayslip(Payslip payslip)
         {
             var fields = new List<string>
             {
-                FormatName(payslip.Employee),
-                FormatPayPeriod(payslip.PayPeriod),
+                Formatter.ConcatenateEmployeeName(payslip.Employee),
+                Formatter.ConcatenatePayPeriod(payslip.PayPeriod),
                 payslip.TaxInformation.GrossIncome.ToString(),
                 payslip.TaxInformation.IncomeTax.ToString(),
                 payslip.TaxInformation.NetIncome.ToString(),
@@ -65,18 +59,6 @@ namespace Payslip_Round_2
 
             var combinedLine = string.Join(Config.CsvDelimiter, fields);
             return combinedLine;
-        }
-
-        private static string FormatName(Employee employee)
-        {
-            return $"{employee.Firstname} {employee.Lastname}";
-        }
-
-        private static string FormatPayPeriod(PayPeriod payPeriod)
-        {
-            var formattedStartDate = payPeriod.Start.ToString("MMMM dd");
-            var formattedEndDate = payPeriod.End.ToString("MMMM dd");
-            return $"{formattedStartDate} - {formattedEndDate}";
         }
     }
 }

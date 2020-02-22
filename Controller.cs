@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Payslip_Round_2.IO;
 
 namespace Payslip_Round_2
 {
@@ -17,7 +18,7 @@ namespace Payslip_Round_2
         {
             var payslips = new List<Payslip>();
             
-            var userChoice = GetChoiceOfManualOrCsv();
+            var userChoice = UserInput.GetChoiceOfManualOrCsv();
             switch (userChoice)
             {
                 case "manual":
@@ -31,88 +32,34 @@ namespace Payslip_Round_2
             return payslips;
         }
 
-        private string GetChoiceOfManualOrCsv()
-        {
-            Display.AlertUser("Type 'csv' or 'manual' to specify input type");
-            return Display.GetUserInput();
-        }
-
         private List<Payslip> CreatePayslipFromCsv()
         {
-            var filename = GetCsvFilename();
+            var filename = UserInput.GetCsvFilename();
             return PayslipFactory.MakePayslip(filename);
         }
 
-        private string GetCsvFilename()
+        private static Payslip CreatePayslipManually()
         {
-            Display.AlertUser("Please enter a filename for the CSV file");
-            return Display.GetUserInput();
-        }
-
-        private Payslip CreatePayslipManually()
-        {
-            var employee = CreateEmployeeManually();
-            employee.Country = Config.Australia;
-            var payPeriod = GetPayPeriodManually();
+            var employee = UserInput.CreateEmployeeManually();
+            var payPeriod = UserInput.GetPayPeriodManually();
             return PayslipFactory.MakePayslip(employee, payPeriod);
-        }
-
-        private Employee CreateEmployeeManually()
-        {
-            var employee = new Employee();
-            
-            Display.AlertUser("Please input your name:");
-            employee.Firstname = Display.GetUserInput();
-            
-            Display.AlertUser("Please input your surname:");
-            employee.Lastname = Display.GetUserInput();
-            
-            Display.AlertUser("Please enter your annual salary:");
-            employee.Salary = Convert.ToDecimal(Display.GetUserInput());
-            
-            Display.AlertUser("Please enter your super rate:");
-            employee.SuperPercent = Convert.ToDecimal(Display.GetUserInput());
-
-            return employee;
-        }
-
-        private PayPeriod GetPayPeriodManually()
-        {
-            var payPeriod = new PayPeriod()
-            {
-                Start = GetUserInputPaymentStart(),
-                End = GetUserInputPaymentEnd()
-            };
-            return payPeriod;
-        }
-
-        private DateTime GetUserInputPaymentStart()
-        {
-            Display.AlertUser("Please enter your payment start date:");
-            return Convert.ToDateTime(Display.GetUserInput());
-        }
-
-        private DateTime GetUserInputPaymentEnd()
-        {
-            Display.AlertUser("Please enter your payment end date:");
-            return Convert.ToDateTime(Display.GetUserInput());
         }
 
         private void DisplayPayslips(List<Payslip> payslips)
         {
-            var userChoice = GetUserOutputFormatChoice();
+            var userChoice = UserInput.GetUserOutputFormatChoice();
             switch (userChoice)
             {
                 case "console":
                     ConsoleDisplayAllPayslips(payslips);
                     break;
                 case "csv":
-                    var outputFileName = GetCsvFilename();
+                    var outputFileName = UserInput.GetCsvFilename();
                     WritePayslipsToCsv(payslips, outputFileName);
                     break;
             }
         }
-        private void ConsoleDisplayAllPayslips(List<Payslip> payslips)
+        private static void ConsoleDisplayAllPayslips(List<Payslip> payslips)
         {
             foreach (var payslip in payslips)
             {
@@ -121,13 +68,7 @@ namespace Payslip_Round_2
             }
         }
 
-        private string GetUserOutputFormatChoice()
-        {
-            Display.AlertUser("Type 'console' or 'csv' to decide how to output the payslip(s)");
-            return Display.GetUserInput();
-        }
-
-        private void WritePayslipsToCsv(List<Payslip> payslips, string filename)
+        private static void WritePayslipsToCsv(List<Payslip> payslips, string filename)
         {
             var lines = new List<string>()
             {
