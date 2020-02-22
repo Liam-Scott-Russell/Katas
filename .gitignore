@@ -29,8 +29,19 @@ _UpgradeReport_Files/
 Thumbs.db
 Desktop.ini
 .DS_Store
+<<<<<<< HEAD
 .idea/.idea.Payslip-Round-2/.idea/encodings.xml
 .idea/.idea.Payslip-Round-2/.idea/indexLayout.xml
 .idea/.idea.Payslip-Round-2/.idea/projectSettingsUpdater.xml
 .idea/.idea.Payslip-Round-2/.idea/vcs.xml
 ./idea/.gitignore
+=======
+.idea/.idea.Algorithm/.idea/.name
+.idea/.idea.Algorithm/.idea/encodings.xml
+.idea/.idea.Algorithm/.idea/indexLayout.xml
+.idea/.idea.Algorithm/.idea/projectSettingsUpdater.xml
+*.config
+Algorithm.Tests/Properties/AssemblyInfo.cs
+Algorithm/Algorithm/Properties/AssemblyInfo.cs
+.idea/.idea.Algorithm/.idea/vcs.xml
+>>>>>>> master-holder
